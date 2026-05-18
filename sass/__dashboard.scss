@@ -1,0 +1,339 @@
+// ================================================================
+// Dashboard Layout
+// ================================================================
+
+.dashboard {
+  width: 96%;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+// ================================================================
+// Room Card
+// ================================================================
+
+.room {
+  background-color: $subbg;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+
+  &__upper {
+    background-color: $mainaccent;
+    padding: 1.2rem 2.4rem;
+    border-left: 5px solid $subaccent;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &__title {
+      p {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: $mainbg;
+        letter-spacing: 0.1em;
+      }
+    }
+
+    &__actions {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+
+      button,
+      a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: rgba($mainbg, 0.7);
+        padding: 0.4rem;
+        border-radius: 4px;
+        transition: color 0.15s, background-color 0.15s;
+
+        &:hover {
+          color: $mainbg;
+          background-color: rgba($mainbg, 0.1);
+        }
+
+        svg {
+          font-size: 2rem;
+        }
+      }
+    }
+  }
+
+  &__lower {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+
+    &__left {
+      width: 35rem;
+      flex-shrink: 0;
+      padding: 2rem;
+      background-color: $subbg;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    &__right {
+      flex: 1;
+      min-width: 0;
+      margin: 1.5rem;
+      padding: 1.5rem;
+      border-radius: 8px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      background-color: $mainbg;
+      align-self: flex-start;
+    }
+  }
+}
+
+// ================================================================
+// Indicator Item
+// ================================================================
+
+.inditem {
+  background-color: $subbg;
+  border-radius: 6px;
+  padding: 0.9rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+
+  &__title {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: $letter;
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+  }
+
+  &__body {
+    font-size: 2rem;
+    font-weight: 700;
+    color: $mainaccent;
+    line-height: 1.1;
+
+    span {
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: $letter;
+      margin-left: 0.2rem;
+    }
+  }
+
+  // Status variant — shows running state with green indicator dot
+  &--status {
+    background-color: rgba($green, 0.06);
+    border: 1px solid rgba($green, 0.22);
+
+    .inditem__title {
+      color: $danger;
+    }
+
+    .inditem__body {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-size: 1.6rem;
+      color: $green;
+
+      &::before {
+        content: '';
+        display: block;
+        width: 0.8rem;
+        height: 0.8rem;
+        border-radius: 50%;
+        background-color: $green;
+        flex-shrink: 0;
+      }
+    }
+
+    &--alarm {
+      background-color: rgba($subaccent, 0.06);
+      border: 1px solid rgba($subaccent, 0.22);
+
+      .inditem__body {
+        color: $subaccent;
+
+        &::before {
+          background-color: $subaccent;
+        }
+      }
+    }
+
+    &--stop {
+      background-color: rgba($danger, 0.06);
+      border: 1px solid rgba($danger, 0.22);
+
+      .inditem__body {
+        color: $danger;
+
+        &::before {
+          background-color: $danger;
+        }
+      }
+    }
+  }
+}
+
+// 2-column metric grid for the left (system-level) panel
+.inditem-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+}
+
+// ================================================================
+// Package Unit
+// ================================================================
+
+.package {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background-color: $mainbg;
+  border-radius: 6px;
+
+  &__left {
+    flex: 0 0 30rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+
+  &__right {
+    flex: 1;
+    min-width: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+    align-content: start;
+  }
+}
+
+// ================================================================
+// Machine Image
+// ================================================================
+
+.indiimage {
+  background-color: $mainbg;
+  border-radius: 6px;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+
+  img {
+    width: 18rem;
+    height: auto;
+    object-fit: contain;
+  }
+}
+
+// ================================================================
+// Refresh Button
+// ================================================================
+
+.refreshbutton {
+  background-color: $mainbg;
+  height: 3.5rem;
+  width: 5rem;
+  border: solid 1px $letter;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 2rem;
+  cursor: pointer;
+
+  &__icon {
+    font-size: 3rem !important;
+  }
+
+  &:hover {
+    background-color: $subbg;
+  }
+}
+
+// ================================================================
+// Responsive Breakpoints
+// ================================================================
+
+// ① Room lower stacks: left panel full-width, packages single column
+//    KEY FIX: align-self: stretch overrides flex-start so the right
+//    panel fills the full horizontal width in a column flex context.
+@media screen and (max-width: 1385px) {
+  .room__lower {
+    flex-direction: column;
+
+    &__left {
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    &__right {
+      margin: 0 1.5rem 1.5rem;
+      align-self: stretch; // ← fix: was flex-start, caused narrow width
+      box-sizing: border-box;
+      grid-template-columns: 1fr;
+    }
+  }
+
+  // Full-width left panel: spread all 6 metrics across one row automatically
+  .inditem-grid {
+    grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+  }
+
+  // Packages are now single-column and wider → use 3 metric columns
+  .package__right {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+// ② Package internal layout goes column (image above metrics)
+//    width: 100% explicitly set on both children to guarantee full stretch.
+@media screen and (max-width: 750px) {
+  .inditem-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .package {
+    flex-direction: column;
+
+    &__left {
+      flex: none;
+      width: 100%; // explicit: ensure full-width in column context
+    }
+
+    &__right {
+      flex: none;
+      width: 100%; // explicit: ensure full-width in column context
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+
+// ③ Narrow mobile: tighten columns
+@media screen and (max-width: 500px) {
+  .inditem-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .indiimage img {
+    width: 14rem;
+  }
+}

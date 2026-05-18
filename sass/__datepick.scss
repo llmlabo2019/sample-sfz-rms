@@ -1,0 +1,117 @@
+.react-datepicker-popper {
+  z-index: 9998 !important;
+}
+
+// ----- カレンダー全体のスタイル -----
+.react-datepicker {
+  font-family: 'Noto Sans JP', 'Helvetica Neue', Arial, sans-serif !important;
+  font-size: 1.4rem !important;
+  border: 1px solid $gray !important;
+  border-radius: 1rem !important;
+  background-color: $mainbg !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+  overflow: hidden;
+}
+
+// ----- ヘッダー部分 -----
+.react-datepicker__header {
+  background-color: $subbg !important;
+  border-bottom: 1px solid $gray !important;
+  padding: 1.5rem 1rem 1rem !important;
+  border-top-left-radius: 1rem !important;
+  border-top-right-radius: 1rem !important;
+}
+
+// ----- 現在の月表示 -----
+.react-datepicker__current-month,
+.react-datepicker-time__header,
+.react-datepicker-year-header {
+  font-size: 1.8rem !important;
+  font-weight: 600 !important;
+  color: $letter !important;
+  margin-bottom: 1rem !important;
+}
+
+// ----- 曜日表示 -----
+.react-datepicker__day-names {
+  margin-bottom: 0 !important;
+}
+
+.react-datepicker__day-name {
+  color: $dark_gray !important;
+  font-size: 1.3rem !important;
+  font-weight: 500 !important;
+  width: 3.5rem !important;
+  line-height: 3rem !important;
+  margin: 0.2rem !important;
+}
+
+// ----- 日付セル -----
+.react-datepicker__day {
+  color: $letter !important;
+  font-size: 1.4rem !important;
+  width: 3.5rem !important;
+  line-height: 3.5rem !important;
+  margin: 0.2rem !important;
+  border-radius: 0.5rem !important;
+  transition: all 0.15s ease !important;
+
+  &:hover {
+    background-color: $subbg !important;
+    color: $mainaccent !important;
+  }
+}
+
+// ----- 選択中の日付 -----
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+  background-color: $mainaccent !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+
+  &:hover {
+    background-color: darken($mainaccent, 10%) !important;
+    color: #ffffff !important;
+  }
+}
+
+// ----- 当日の日付 -----
+.react-datepicker__day--today {
+  background-color: $subaccent !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+
+  &:hover {
+    background-color: darken($subaccent, 10%) !important;
+    color: #ffffff !important;
+  }
+}
+
+// ----- 三角（吹き出し）非表示 -----
+.react-datepicker__triangle {
+  display: none !important;
+}
+
+.datepick {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  border: solid 1px $danger;
+  border-radius: 6px;
+  overflow: hidden;
+
+  input {
+    height: 3.5rem;
+    font-size: 2rem;
+    border: none;
+    text-align: center;
+    font-weight: 600;
+    font-family: 'Noto Sans JP', 'Helvetica Neue', 'Helvetica', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Arial', 'Yu Gothic', 'Meiryo', sans-serif;
+    color: $letter;
+    cursor: pointer;
+    &:hover {
+      background-color: #eee;
+    }
+  }
+}

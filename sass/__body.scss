@@ -1,0 +1,103 @@
+.body {
+  width: 100%;
+  height: fit-content;
+  padding: 3rem 0 15rem 0;
+  background-color: $mainbg;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  &__area {
+    width: 96%;
+    height: 96%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    background-color: $mainbg;
+    &__upper {
+      height: 10%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 2%;
+      &__left {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        &__input {
+          width: 30rem;
+          height: 3rem;
+          outline: none;
+          padding: 1rem 0 1rem 1rem;
+          &::placeholder {
+            font-weight: 400;
+            color: #aaa;
+          }
+          &:focus {
+            border: solid 2px $mainaccent;
+          }
+        }
+        &__button {
+          border-radius: 0%;
+          border: solid 1px #aaa;
+          background-color: $mainbg;
+          padding: 1rem 2rem;
+          margin-left: 1rem;
+          cursor: pointer;
+          text-decoration: none;
+          color: $letter;
+          font-size: 1.5rem;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          &:hover {
+            background-color: $subbg;
+          }
+        }
+      }
+    }
+    &__lower {
+      height: 85%;
+    }
+  }
+  &__outline {
+    width: 96%;
+    height: 96%;
+    box-shadow: 1.5px 1px 0px 0px rgba(0, 0, 0, 0.4);
+    border: solid 1px rgba($color: $letter, $alpha: 0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-color: $mainbg;
+    &__upper {
+      height: 10%;
+      width: 96%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      &__left {
+        width: 84%;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+      }
+      &__right {
+        width: 16%;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+      }
+    }
+    &__table {
+      height: 87%;
+      width: 96%;
+      margin: 0 auto;
+      overflow: scroll;
+    }
+  }
+}

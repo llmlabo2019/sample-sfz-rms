@@ -1,0 +1,326 @@
+.header {
+  width: 100%;
+  height: 13rem;
+  position: fixed;
+  z-index: 997;
+  &__upper {
+    height: 8rem;
+    width: 100%;
+    margin: 0 auto;
+    background-color: $mainbg;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.1));
+    &__nav {
+      height: 100%;
+      position: relative;
+      &__body {
+        position: relative;
+        width: 8rem;
+        height: 100%;
+        z-index: 999;
+        background-color: $mainaccent;
+        span {
+          display: inline-block;
+          position: absolute;
+          left: 14px;
+          height: 3px;
+          border-radius: 2px;
+          background: $mainbg;
+          width: 55%;
+          &:nth-of-type(1) {
+            top: 19px;
+          }
+          &:nth-of-type(2) {
+            top: 30px;
+          }
+          &:nth-of-type(3) {
+            top: 41px;
+          }
+        }
+      }
+      &__name {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: $mainaccent;
+        height: 100%;
+        width: 8rem;
+        top: 0;
+        left: -8rem;
+        transition: all 1s ease-in-out;
+        p {
+          font-size: 2rem;
+          font-weight: 600;
+          color: $mainbg;
+        }
+        &.on {
+          left: 8rem;
+        }
+      }
+    }
+    &__img {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      img {
+        height: 70%;
+        width: auto;
+      }
+    }
+    &__left {
+      height: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      padding-left: 2rem;
+      box-sizing: border-box;
+      img {
+        height: 6.4rem;
+        width: auto;
+      }
+      select {
+        height: 4rem;
+        width: 20rem;
+        margin-left: 2rem;
+        appearance: none;
+        font-size: 2rem;
+        text-align: center;
+        border: solid 1px $dark_gray;
+        &:focus {
+          outline: solid 2px $mainaccent;
+          border: 0;
+        }
+      }
+    }
+    &__right {
+      height: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      padding: 0 3rem;
+      box-sizing: border-box;
+      cursor: pointer;
+      &__back {
+        visibility: hidden;
+        font-size: 2rem;
+        cursor: pointer;
+        a {
+          text-decoration: none;
+          color: $mainaccent;
+        }
+        &.active {
+          visibility: visible;
+        }
+      }
+      &__username {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        &__icon {
+          font-size: 4rem !important;
+          color: $mainaccent;
+        }
+        p {
+          font-size: 2rem;
+          color: $letter;
+        }
+        &::after {
+          margin: 1rem;
+          transform: translateY(-25%) rotate(45deg);
+          width: 7px;
+          height: 7px;
+          margin-left: 2rem;
+          border-bottom: 3px solid $mainaccent;
+          border-right: 3px solid $mainaccent;
+          content: '';
+          transition: transform 0.3s;
+        }
+      }
+    }
+  }
+  &__lower {
+    height: 5rem;
+    width: 100%;
+    margin: 0 auto;
+    background-color: $danger;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    &__breadcrumb {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      padding-left: 4.5rem;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: $subbg;
+      a {
+        text-decoration: none;
+        color: $letter;
+      }
+      span {
+        margin: 0 1rem;
+      }
+      &__icon {
+        font-size: 3rem !important;
+        margin-right: 1rem;
+      }
+      p {
+        font-size: 1.8rem;
+      }
+    }
+  }
+}
+
+.content {
+  width: 100%;
+  padding-top: 13rem;
+  height: calc(90vh - 13rem);
+  box-sizing: border-box;
+  &__inner {
+    width: 96%;
+    margin: 0 auto;
+    background-color: $subbg;
+    &__title {
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      &__img {
+        height: 4rem;
+        width: auto;
+        margin-right: 1rem;
+        margin-bottom: 4px;
+      }
+      span {
+        width: 1.5rem;
+        height: 5rem;
+        margin-right: 2rem;
+        background-color: $mainaccent;
+      }
+      p {
+        font-size: 3rem;
+        font-weight: 600;
+        color: $letter;
+      }
+      &__logo {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        &__image {
+          height: 3.5rem;
+          width: auto;
+          margin-right: 2rem;
+        }
+        &__icon {
+          height: 5rem;
+          width: auto;
+        }
+      }
+    }
+  }
+  &__body {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.control {
+  width: 96%;
+  padding: 2rem 0;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  &__division {
+    width: fit-content;
+    margin-right: 1rem;
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-right: 5rem;
+    border-bottom: solid 1px $letter;
+  }
+  &__select {
+    width: 20rem;
+    margin-right: 1rem;
+    select {
+      width: 100%;
+      height: 5rem;
+      font-size: 2rem;
+      text-align: center;
+    }
+  }
+  &__button {
+    width: 20rem;
+    button {
+      width: 100%;
+      height: 5rem;
+      font-size: 2rem;
+      font-weight: 600;
+      border-radius: 0;
+      border: none;
+      color: $letter;
+      background-color: $subaccent;
+      cursor: pointer;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .header {
+    &__upper {
+      &__left {
+        img {
+          height: 5rem;
+        }
+
+        select {
+          width: 10rem;
+        }
+      }
+
+      &__right {
+        &__username {
+          p {
+            display: none;
+          }
+        }
+      }
+    }
+
+    &__lower {
+      &__breadcrumb {
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  .content {
+    &__inner {
+      width: 85%;
+      &__title {
+        span {
+          width: 1rem;
+          height: 3.5rem;
+          margin-right: 1rem;
+        }
+
+        p {
+          font-size: 2.5rem;
+        }
+      }
+    }
+  }
+}

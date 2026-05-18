@@ -1,0 +1,179 @@
+//alarmhistory
+
+.alarmhistory {
+  width: 100%;
+  height: 100%;
+  &__wrapper {
+    width: 96%;
+    margin: 0 auto;
+    height: 100%;
+    &__contents {
+      width: 100%;
+      height: 100%;
+      &__content {
+        width: 100%;
+        height: 100%;
+        &__topmenu {
+          padding-top: 2rem;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 1rem;
+          &__left {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            margin-top: 1rem;
+          }
+          &__right {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 1rem;
+          }
+          &__title {
+            font-size: 2.5rem;
+            color: #555555;
+          }
+        }
+      }
+    }
+  }
+}
+
+.alarms {
+  margin-top: 2rem;
+  width: 100%;
+  height: 70vh;
+  &__body {
+    width: 100%;
+    height: 100%;
+    background-color: $mainbg;
+    box-shadow: 0 2px 12px rgba($color: $mainaccent, $alpha: 0.15);
+    border-radius: 10px;
+    overflow: auto;
+    position: relative;
+    table {
+      width: 100%;
+      min-width: 60rem;
+      border-collapse: collapse;
+      position: relative;
+      tbody {
+        width: 100%;
+        tr {
+          height: 5rem;
+          font-size: 2rem;
+          th {
+            width: 25%;
+            font-size: 2rem;
+            text-align: center;
+            color: $letter;
+            padding: 1rem 1.5rem;
+            white-space: nowrap;
+            position: sticky;
+            top: 0;
+            background-color: rgba($color: #dddddd, $alpha: 1);
+            border-right: solid 1.8px rgba($color: #eeeeee, $alpha: 1);
+            &:first-child {
+              width: 30%;
+            }
+          }
+          td {
+            font-size: 2rem;
+            text-align: center;
+            min-width: 10rem;
+            padding: 0.8rem 1.5rem;
+            color: $letter;
+            border-bottom: dotted 1px rgba($color: #555555, $alpha: 0.3);
+            &:first-child {
+              text-align: start;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// ① タブレット
+@media screen and (max-width: 768px) {
+  .alarmhistory {
+    &__wrapper {
+      width: 100%;
+      padding: 0 1.5rem;
+      box-sizing: border-box;
+    }
+  }
+
+  .alarms {
+    height: 65vh;
+    &__body {
+      border-radius: 6px;
+      table {
+        min-width: 50rem;
+        tbody {
+          tr {
+            height: 4rem;
+            th {
+              font-size: 1.6rem;
+              padding: 0.8rem 1rem;
+            }
+            td {
+              font-size: 1.6rem;
+              min-width: 8rem;
+              padding: 0.6rem 1rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// ② スマートフォン
+@media screen and (max-width: 480px) {
+  .alarmhistory {
+    &__wrapper {
+      &__contents {
+        &__content {
+          &__topmenu {
+            flex-direction: column;
+            align-items: flex-start;
+            &__right {
+              width: 100%;
+              justify-content: flex-start;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .alarms {
+    height: 60vh;
+    &__body {
+      border-radius: 0;
+      table {
+        min-width: 40rem;
+        tbody {
+          tr {
+            height: 3.5rem;
+            th {
+              font-size: 1.4rem;
+              padding: 0.6rem 0.8rem;
+            }
+            td {
+              font-size: 1.4rem;
+              min-width: 6rem;
+              padding: 0.5rem 0.8rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
