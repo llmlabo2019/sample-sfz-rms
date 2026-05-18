@@ -1,20 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const ORIGIN: string = process.env.ORIGIN!;
-const BASE_URL: string = process.env.BASE_URL!;
-
 export async function POST(req: NextRequest): Promise<NextResponse> {
-  const origin: string | null = req.headers.get("origin");
+  const ORIGIN: string = process.env.ORIGIN!;
+  const BASE_URL: string = process.env.BASE_URL!;
+  const req_origin: string | null = req.headers.get("origin");
   let baseUrl: string = BASE_URL;
 
-  if (!origin) {
+  if (!req_origin) {
     return NextResponse.json(
       { message: "Bad Request: Missing Origin" },
       { status: 400 },
     );
   }
 
-  // if (origin !== ORIGIN) {
+  // if (req_origin !== ORIGIN) {
   //   return NextResponse.json(
   //     { message: "Forbidden: Invalid Origin" },
   //     { status: 403 }

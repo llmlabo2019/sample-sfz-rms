@@ -9,16 +9,16 @@ type ProxyRequest<T = any> = {
 };
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
-  const origin: string | null = req.headers.get("origin");
+  const req_origin: string | null = req.headers.get("origin");
 
-  if (!origin) {
+  if (!req_origin) {
     return NextResponse.json(
       { message: "Bad Request: Missing Origin" },
       { status: 400 },
     );
   }
 
-  // if (origin !== ORIGIN) {
+  // if (req_origin !== ORIGIN) {
   //   return NextResponse.json({ message: "Forbidden: Invalid Origin" }, { status: 403 });
   // }
 
