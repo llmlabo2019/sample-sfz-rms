@@ -32,6 +32,8 @@
     "@aws-sdk/client-cognito-identity-provider": "^3.1048.0",
     "@aws-sdk/client-dynamodb": "^3.1048.0",
     "@aws-sdk/lib-dynamodb": "^3.1048.0",
+    "@types/encoding-japanese": "^2.2.1",
+    "@types/file-saver": "^2.0.7",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
