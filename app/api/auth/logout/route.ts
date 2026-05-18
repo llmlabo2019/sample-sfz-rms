@@ -1,12 +1,12 @@
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
 
 export async function POST() {
-  const response = NextResponse.json({ message: 'ログアウト成功' });
+  const response = NextResponse.json({ message: "ログアウト成功" });
 
   // Cookieを削除
-  response.cookies.set('cpmc-token', '', {
+  response.cookies.set("sample-sfz-token", "", {
     httpOnly: true,
-    path: '/',
+    path: "/",
     maxAge: 0,
   });
 
