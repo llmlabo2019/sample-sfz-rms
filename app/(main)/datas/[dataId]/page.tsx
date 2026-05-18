@@ -473,7 +473,7 @@ function Datas({ params }: DatasProps) {
                   selected={date}
                   locale="ja"
                   id="datepicker"
-                  onChange={(selectedDate) => {
+                  onChange={(selectedDate: Date | null) => {
                     setDate(selectedDate || Today);
                   }}
                 />
