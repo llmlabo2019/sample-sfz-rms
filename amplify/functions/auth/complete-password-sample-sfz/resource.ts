@@ -1,6 +1,6 @@
 import { defineFunction } from "@aws-amplify/backend";
 
 export const completePasswordSampleSfz = defineFunction({
-  name: "complete-passoword-Sample-SFZ",
+  name: "complete-password-Sample-SFZ",
   entry: "./completePasswordSampleSfzMain.ts",
 });

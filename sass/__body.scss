@@ -1,11 +1,11 @@
 .body {
   width: 100%;
-  height: fit-content;
-  padding: 3rem 0 15rem 0;
-  background-color: $mainbg;
+  min-height: calc(100vh - 13rem);
+  padding: 4rem 0 3rem 0;
+  background-color: #ffffff;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   &__area {
     width: 96%;

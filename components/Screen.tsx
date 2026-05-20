@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect, Suspense } from 'react';
-import Image from 'next/image';
-import MycomLogo from '@/images/maekawa_logo.png';
-import DashboardIcon from '@mui/icons-material/DashboardOutlined';
-import ChartIcon from '@mui/icons-material/AreaChartOutlined';
-import AlarmIcon from '@mui/icons-material/WarningAmberOutlined';
+import React, { useState, useEffect, Suspense } from "react";
+import Image from "next/image";
+import MycomLogo from "@/images/maekawa_logo.png";
+import DashboardIcon from "@mui/icons-material/DashboardOutlined";
+import ChartIcon from "@mui/icons-material/AreaChartOutlined";
+import AlarmIcon from "@mui/icons-material/WarningAmberOutlined";
 
-import { usePathname } from 'next/navigation';
+import { usePathname } from "next/navigation";
 
 type Props = {
   children: React.ReactNode;
@@ -20,23 +20,46 @@ function Screen({ children, onToggleMenu, titleName }: Props) {
   const pathname = usePathname();
   const [isFlagOpen, setIsFlagOpen] = useState(false);
 
-  const [pageName, setPageName] = useState('Index');
+  const [pageName, setPageName] = useState("Index");
   const [pageIcon, setPageIcon] = useState<React.ComponentType | null>(null);
 
-  const pathConfig: Record<string, { name: string; icon: React.ComponentType; title?: string }> = {
-    '/dashboard': { name: 'ダッシュボード', icon: DashboardIcon },
-    '/datas/sf-zero-1': { name: '稼働データ', icon: ChartIcon, title: 'SF-ZERO No.1庫' },
-    '/datas/sf-zero-2': { name: '稼働データ', icon: ChartIcon, title: 'SF-ZERO No.2庫' },
-    '/alarms/sf-zero-1': { name: '警報履歴', icon: AlarmIcon, title: 'SF-ZERO No.1庫' },
-    '/alarms/sf-zero-2': { name: '警報履歴', icon: AlarmIcon, title: 'SF-ZERO No.2庫' },
-    '/datas': { name: '稼働データ', icon: ChartIcon },
-    '/alarms': { name: '警報履歴', icon: AlarmIcon },
+  const pathConfig: Record<
+    string,
+    { name: string; icon: React.ComponentType; title?: string }
+  > = {
+    "/dashboard": { name: "ダッシュボード", icon: DashboardIcon },
+    "/datas/sf-zero-1": {
+      name: "稼働データ",
+      icon: ChartIcon,
+      title: "SF-ZERO No.1庫",
+    },
+    "/datas/sf-zero-2": {
+      name: "稼働データ",
+      icon: ChartIcon,
+      title: "SF-ZERO Sample",
+    },
+    "/alarms/sf-zero-1": {
+      name: "警報履歴",
+      icon: AlarmIcon,
+      title: "SF-ZERO No.1庫",
+    },
+    "/alarms/sf-zero-2": {
+      name: "警報履歴",
+      icon: AlarmIcon,
+      title: "SF-ZERO Sample",
+    },
+    "/datas": { name: "稼働データ", icon: ChartIcon },
+    "/alarms": { name: "警報履歴", icon: AlarmIcon },
   };
 
-  const [displayTitle, setDisplayTitle] = useState<string | undefined>(titleName);
+  const [displayTitle, setDisplayTitle] = useState<string | undefined>(
+    titleName,
+  );
 
   useEffect(() => {
-    const matchedKey = Object.keys(pathConfig).find((key) => pathname.startsWith(key));
+    const matchedKey = Object.keys(pathConfig).find((key) =>
+      pathname.startsWith(key),
+    );
 
     if (matchedKey) {
       setPageName(pathConfig[matchedKey].name);
@@ -48,7 +71,7 @@ function Screen({ children, onToggleMenu, titleName }: Props) {
       return;
     }
 
-    setPageName('No Name');
+    setPageName("No Name");
     setPageIcon(null);
     setDisplayTitle(titleName);
   }, [pathname, titleName]);
@@ -81,7 +104,13 @@ function Screen({ children, onToggleMenu, titleName }: Props) {
               <span></span>
               <span></span>
             </div>
-            <div className={isFlagOpen ? 'header__upper__nav__name on' : 'header__upper__nav__name'}>
+            <div
+              className={
+                isFlagOpen
+                  ? "header__upper__nav__name on"
+                  : "header__upper__nav__name"
+              }
+            >
               <p>Menu</p>
             </div>
           </div>
@@ -91,8 +120,15 @@ function Screen({ children, onToggleMenu, titleName }: Props) {
         </div>
         <div className="header__lower">
           <div className="header__lower__breadcrumb">
-            {pageIcon && React.createElement(pageIcon, { className: 'header__lower__breadcrumb__icon' } as any)}
-            <p>{pathname !== '/dashboard' && displayTitle ? `${displayTitle} > ${pageName}` : pageName}</p>
+            {pageIcon &&
+              React.createElement(pageIcon, {
+                className: "header__lower__breadcrumb__icon",
+              } as any)}
+            <p>
+              {pathname !== "/dashboard" && displayTitle
+                ? `${displayTitle} > ${pageName}`
+                : pageName}
+            </p>
           </div>
         </div>
       </div>

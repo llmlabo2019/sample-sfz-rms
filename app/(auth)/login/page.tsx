@@ -1,19 +1,17 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Image from 'next/image';
-import AppLogo from '@/images/maekawa_logo.png';
-import { useMfa } from '@/context/MfaContext';
-import { useInfo } from '@/context/InfomationContext';
-import LoginIcon from '@mui/icons-material/LoginOutlined';
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import AppLogo from "@/images/maekawa_logo.png";
+import { useInfo } from "@/context/InfomationContext";
+import LoginIcon from "@mui/icons-material/LoginOutlined";
 
 function LogIn() {
   const router = useRouter();
-  const { setNextStep } = useMfa();
   const { setInfo } = useInfo();
-  const [username, setUsername] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
   const handleSignIn = async (e: React.FormEvent) => {
@@ -22,12 +20,12 @@ function LogIn() {
     try {
       setLoading(true);
 
-      const res = await fetch('/api/proxy/rawpost', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
+      const res = await fetch("/api/proxy/rawpost", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify({
-          endpoint: '/login-cpmc',
+          endpoint: "/login-sample-sfz",
           body: { username, password },
         }),
       });
@@ -35,59 +33,69 @@ function LogIn() {
       const data = await res.json();
 
       if (res.ok) {
-        if (data.challenge === 'NEW_PASSWORD_REQUIRED') {
-          sessionStorage.setItem('cognitoSession', data.session);
-          sessionStorage.setItem('cognitoUsername', data.username);
-          router.push('/complete-password');
-        } else if (data.challenge === 'MFA_SETUP') {
-          sessionStorage.setItem('cognitoSession', data.session);
-          sessionStorage.setItem('cognitoUsername', data.username);
-          setNextStep(data.secretCode);
-          router.push('/mfa-setup');
-          setLoading(false);
-        } else if (data.challenge === 'SOFTWARE_TOKEN_MFA') {
-          sessionStorage.setItem('cognitoSession', data.session);
-          sessionStorage.setItem('cognitoUsername', data.username);
-          router.push('/mfa-input');
-          setLoading(false);
+        if (data.challenge === "NEW_PASSWORD_REQUIRED") {
+          sessionStorage.setItem("cognitoSession", data.session);
+          sessionStorage.setItem("cognitoUsername", data.username);
+          router.push("/complete-password");
         } else {
+          sessionStorage.setItem("userid", username);
           setLoading(false);
-          setInfo('Login Error');
+          router.push("/");
         }
       } else {
         setLoading(false);
-        setInfo('Login Error');
+        setInfo("Login Error");
       }
     } catch (err: any) {
       setLoading(false);
-      setInfo(err.message || 'Login Error');
+      setInfo(err.message || "Login Error");
     }
   };
 
   return (
     <div className="form">
-      <div className="form__items">
-        <div className="form__items__item">
-          <div className="form__items__item__logo">
-            <Image src={AppLogo} alt="app-logo" />
-          </div>
-          <div className="form__items__item__titles">
-            <p>MYCOM SF-ZERO</p>
-            <p>遠隔監視システム</p>
-          </div>
+      <div className="form__header">
+        <div className="form__logo">
+          <Image src={AppLogo} alt="app-logo" />
         </div>
-        <div className="form__items__item">
-          <input type="text" className="form__items__item__input" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Email" required />
+        <h1 className="form__title">SF-ZERO RMS</h1>
+        <p className="form__subtitle">Sample</p>
+      </div>
+
+      <div className="form__body">
+        <div className="form__field">
+          <label className="form__field__label">メールアドレス</label>
+          <input
+            type="text"
+            className="form__field__input"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="example@email.com"
+            required
+          />
         </div>
-        <div className="form__items__item">
-          <input type="password" className="form__items__item__input" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" required />
+
+        <div className="form__field">
+          <label className="form__field__label">パスワード</label>
+          <input
+            type="password"
+            className="form__field__input"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="••••••••"
+            required
+          />
         </div>
-        <div className="form__items__item">
-          <button type="button" className="form__items__item__button" onClick={handleSignIn} disabled={loading}>
-            <LoginIcon />
-            {loading ? 'Processing...' : 'Login'}
-          </button>
-        </div>
+
+        <button
+          type="button"
+          className="form__submit"
+          onClick={handleSignIn}
+          disabled={loading}
+        >
+          <LoginIcon />
+          {loading ? "Processing..." : "ログイン"}
+        </button>
       </div>
     </div>
   );

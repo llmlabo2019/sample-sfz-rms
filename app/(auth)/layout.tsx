@@ -1,31 +1,29 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import MycomLogo from '@/images/maekawa_logo_Login.png';
-import { Amplify } from 'aws-amplify';
-import outputs from '@/amplify_outputs.json';
-import { MfaProvider } from '@/context/MfaContext';
-import { InfomationProvider, useInfo } from '@/context/InfomationContext';
-import CustomInfo from '@/components/CustomInfo';
+import { Amplify } from "aws-amplify";
+import outputs from "@/amplify_outputs.json";
+import { InfomationProvider, useInfo } from "@/context/InfomationContext";
+import CustomInfo from "@/components/CustomInfo";
 
 Amplify.configure(outputs);
 
-export default function AuthLayout({ children }: { children: React.ReactNode }) {
+export default function AuthLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <InfomationProvider>
       <CustomAlertWrapper />
       <div className="login">
-        <div className="login__header">
-          <div className="login__header__inner">
-            <div className="login__header__inner__left">
-              <Image src={MycomLogo} alt="mycom-logo" />
-            </div>
-            <div className="login__header__inner__right"></div>
-          </div>
-        </div>
-        <div className="login__container">
-          <MfaProvider>{children}</MfaProvider>
-        </div>
+        <div className="login__wind login__wind--1"></div>
+        <div className="login__wind login__wind--2"></div>
+        <div className="login__wind login__wind--3"></div>
+        <div className="login__wind login__wind--4"></div>
+        <div className="login__wind login__wind--5"></div>
+        <div className="login__wind login__wind--6"></div>
+        <div className="login__wind login__wind--7"></div>
+        <div className="login__container">{children}</div>
       </div>
     </InfomationProvider>
   );

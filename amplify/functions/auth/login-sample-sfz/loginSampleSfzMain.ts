@@ -6,12 +6,12 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 
 const USER_POOL_ID = process.env.USER_POOL_ID!;
 const CLIENT_ID = process.env.CLIENT_ID!;
-const REGION = process.env.REGION || 'ap-northeast-1';
+const REGION = process.env.REGION || "ap-northeast-1";
 
 const client = new CognitoIdentityProviderClient({ region: REGION });
 
 export const handler = async (
-  event: APIGatewayProxyEvent
+  event: APIGatewayProxyEvent,
 ): Promise<APIGatewayProxyResult> => {
   try {
     const body = JSON.parse(event.body || "{}");
@@ -55,7 +55,7 @@ export const handler = async (
     return {
       statusCode: 200,
       headers: {
-        "Set-Cookie": `vdf-sunroyal-token=${idToken}; Expires=${expires}; HttpOnly; Path=/; Secure; SameSite=Lax`,
+        "Set-Cookie": `sample-sfz-token=${idToken}; Expires=${expires}; HttpOnly; Path=/; Secure; SameSite=Lax`,
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Credentials": "true",
       },

@@ -65,24 +65,24 @@
 // ----- 選択中の日付 -----
 .react-datepicker__day--selected,
 .react-datepicker__day--keyboard-selected {
-  background-color: $mainaccent !important;
+  background-color: #1a3260 !important;
   color: #ffffff !important;
   font-weight: 600 !important;
 
   &:hover {
-    background-color: darken($mainaccent, 10%) !important;
+    background-color: #1a5abf !important;
     color: #ffffff !important;
   }
 }
 
 // ----- 当日の日付 -----
 .react-datepicker__day--today {
-  background-color: $subaccent !important;
+  background-color: #1a5abf !important;
   color: #ffffff !important;
   font-weight: 600 !important;
 
   &:hover {
-    background-color: darken($subaccent, 10%) !important;
+    background-color: #2268cc !important;
     color: #ffffff !important;
   }
 }
@@ -97,7 +97,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  border: solid 1px $danger;
+  border: solid 1px #1a5abf;
   border-radius: 6px;
   overflow: hidden;
 
