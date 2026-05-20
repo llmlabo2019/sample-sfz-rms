@@ -1,24 +1,27 @@
-'use client';
+"use client";
 
-import React, { useState, Suspense } from 'react';
-import Screen from '@/components/Screen';
-import Menu from '@/components/Menu';
-import { signOut } from 'aws-amplify/auth';
-import { useRouter } from 'next/navigation';
-import { Amplify } from 'aws-amplify';
-import outputs from '@/amplify_outputs.json';
-import { InfomationProvider, useInfo } from '@/context/InfomationContext';
-import CustomInfo from '@/components/CustomInfo';
-import { LoadingProvider, useLoading } from '@/context/LoadingContext';
-import GlobalLoader from '@/components/GlobalLoader';
-import { DialogueProvider, useDialogue } from '@/context/DialogueContext';
-import { DeleteDialogueProvider } from '@/context/DeleteDialogueContext';
-import { ErrorProvider, useError } from '@/context/ErrorContext';
-import { TitleProvider, useTitle } from '@/context/TitleContext';
+import React, { useState, Suspense } from "react";
+import Screen from "@/components/Screen";
+import Menu from "@/components/Menu";
+import { signOut } from "aws-amplify/auth";
+import { useRouter } from "next/navigation";
+import { InfomationProvider, useInfo } from "@/context/InfomationContext";
+import CustomInfo from "@/components/CustomInfo";
+import { LoadingProvider, useLoading } from "@/context/LoadingContext";
+import GlobalLoader from "@/components/GlobalLoader";
+import { DialogueProvider, useDialogue } from "@/context/DialogueContext";
+import { DeleteDialogueProvider } from "@/context/DeleteDialogueContext";
+import { ErrorProvider, useError } from "@/context/ErrorContext";
+import { TitleProvider, useTitle } from "@/context/TitleContext";
+import { configureAmplify } from "@/utils/amplify-config";
 
-Amplify.configure(outputs);
+configureAmplify();
 
-export default function IndexLayout({ children }: { children: React.ReactNode }) {
+export default function IndexLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
 
@@ -33,11 +36,11 @@ export default function IndexLayout({ children }: { children: React.ReactNode })
   const handleSignOut = async () => {
     try {
       await signOut();
-      await fetch('/api/auth/logout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      await fetch("/api/auth/logout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
       });
-      router.push('/login');
+      router.push("/login");
     } catch (err) {
       console.log(err);
     }
@@ -54,7 +57,9 @@ export default function IndexLayout({ children }: { children: React.ReactNode })
                   <TitleProvider>
                     <CustomAlertWrapper />
                     <GlobalLoader />
-                    <ScreenWrapper onToggleMenu={handleToggleMenu}>{children}</ScreenWrapper>
+                    <ScreenWrapper onToggleMenu={handleToggleMenu}>
+                      {children}
+                    </ScreenWrapper>
                   </TitleProvider>
                 </DeleteDialogueProvider>
               </InfomationProvider>
@@ -63,12 +68,22 @@ export default function IndexLayout({ children }: { children: React.ReactNode })
         </ErrorProvider>
       </Suspense>
 
-      <Menu isMenuOpen={isMenuOpen} onCloseMenu={handleCloseMenu} onSignOut={handleSignOut} />
+      <Menu
+        isMenuOpen={isMenuOpen}
+        onCloseMenu={handleCloseMenu}
+        onSignOut={handleSignOut}
+      />
     </>
   );
 }
 
-function ScreenWrapper({ children, onToggleMenu }: { children: React.ReactNode; onToggleMenu: () => void }) {
+function ScreenWrapper({
+  children,
+  onToggleMenu,
+}: {
+  children: React.ReactNode;
+  onToggleMenu: () => void;
+}) {
   const { titleName } = useTitle();
 
   return (

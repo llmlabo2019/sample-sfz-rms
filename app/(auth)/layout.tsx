@@ -4,8 +4,9 @@ import { Amplify } from "aws-amplify";
 import outputs from "@/amplify_outputs.json";
 import { InfomationProvider, useInfo } from "@/context/InfomationContext";
 import CustomInfo from "@/components/CustomInfo";
+import { configureAmplify } from "@/utils/amplify-config";
 
-Amplify.configure(outputs);
+configureAmplify();
 
 export default function AuthLayout({
   children,
