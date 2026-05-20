@@ -1,9 +1,8 @@
-'use client';
+"use client";
 
-import React from 'react';
-import SfOneStatus from './components/SfOneStatus';
-import SfTwoStatus from './components/SfTwoStatus';
-import { useTitle } from '@/context/TitleContext';
+import React from "react";
+import SfTwoStatus from "./components/SfTwoStatus";
+import { useTitle } from "@/context/TitleContext";
 
 function Dashboard() {
   const { setTitleName } = useTitle();
@@ -15,7 +14,6 @@ function Dashboard() {
   return (
     <div className="body">
       <div className="dashboard">
-        <SfOneStatus />
         <SfTwoStatus />
       </div>
     </div>

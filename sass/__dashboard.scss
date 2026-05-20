@@ -1,9 +1,24 @@
+// Blue theme palette
+$d-navy:    #1a3260;
+$d-blue:    #1a5abf;
+$d-accent:  #2878e0;
+$d-bg:      #f5f8ff;
+$d-bg-card: #ffffff;
+$d-border:  rgba(100, 150, 230, 0.22);
+$d-label:   rgba(50, 90, 170, 0.80);
+$d-value:   #1a3260;
+$d-unit:    rgba(50, 90, 170, 0.58);
+$d-green:   #268785;
+$d-red:     #c73e3a;
+$d-gray:    #666666;
+
 // ================================================================
 // Dashboard Layout
 // ================================================================
 
 .dashboard {
-  width: 96%;
+  width: 94%;
+  max-width: 160rem;
   display: flex;
   flex-direction: column;
   gap: 2.4rem;
@@ -14,16 +29,19 @@
 // ================================================================
 
 .room {
-  background-color: $subbg;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-  border-radius: 10px;
+  background-color: $d-bg-card;
+  box-shadow:
+    0 6px 28px rgba(26, 58, 160, 0.10),
+    0 2px 8px  rgba(26, 58, 160, 0.06);
+  border-radius: 14px;
+  border: 1px solid $d-border;
   overflow: hidden;
   position: relative;
 
   &__upper {
-    background-color: $mainaccent;
+    background: linear-gradient(135deg, $d-navy 0%, $d-blue 100%);
     padding: 1.2rem 2.4rem;
-    border-left: 5px solid $subaccent;
+    border-left: 4px solid $d-accent;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -32,7 +50,7 @@
       p {
         font-size: 1.8rem;
         font-weight: 700;
-        color: $mainbg;
+        color: #ffffff;
         letter-spacing: 0.1em;
       }
     }
@@ -50,14 +68,14 @@
         background: none;
         border: none;
         cursor: pointer;
-        color: rgba($mainbg, 0.7);
+        color: rgba(255, 255, 255, 0.70);
         padding: 0.4rem;
         border-radius: 4px;
         transition: color 0.15s, background-color 0.15s;
 
         &:hover {
-          color: $mainbg;
-          background-color: rgba($mainbg, 0.1);
+          color: #ffffff;
+          background-color: rgba(255, 255, 255, 0.12);
         }
 
         svg {
@@ -73,10 +91,11 @@
     align-items: stretch;
 
     &__left {
-      width: 35rem;
+      width: 32rem;
       flex-shrink: 0;
       padding: 2rem;
-      background-color: $subbg;
+      background-color: $d-bg;
+      border-right: 1px solid $d-border;
       display: flex;
       flex-direction: column;
       gap: 1.2rem;
@@ -87,12 +106,11 @@
       min-width: 0;
       margin: 1.5rem;
       padding: 1.5rem;
-      border-radius: 8px;
+      border-radius: 10px;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
       gap: 1.5rem;
-      background-color: $mainbg;
-      align-self: flex-start;
+      background-color: $d-bg;
     }
   }
 }
@@ -102,8 +120,9 @@
 // ================================================================
 
 .inditem {
-  background-color: $subbg;
-  border-radius: 6px;
+  background-color: $d-bg-card;
+  border: 1px solid $d-border;
+  border-radius: 8px;
   padding: 0.9rem 1rem;
   display: flex;
   flex-direction: column;
@@ -112,7 +131,7 @@
   &__title {
     font-size: 1.4rem;
     font-weight: 500;
-    color: $letter;
+    color: $d-label;
     white-space: nowrap;
     letter-spacing: 0.02em;
   }
@@ -120,24 +139,24 @@
   &__body {
     font-size: 2rem;
     font-weight: 700;
-    color: $mainaccent;
+    color: $d-value;
     line-height: 1.1;
 
     span {
       font-size: 1.2rem;
       font-weight: 400;
-      color: $letter;
+      color: $d-unit;
       margin-left: 0.2rem;
     }
   }
 
-  // Status variant — shows running state with green indicator dot
+  // Status variant
   &--status {
-    background-color: rgba($green, 0.06);
-    border: 1px solid rgba($green, 0.22);
+    background-color: rgba($d-green, 0.06);
+    border: 1px solid rgba($d-green, 0.28);
 
     .inditem__title {
-      color: $danger;
+      color: $d-label;
     }
 
     .inditem__body {
@@ -145,7 +164,7 @@
       align-items: center;
       gap: 0.7rem;
       font-size: 1.6rem;
-      color: $green;
+      color: $d-green;
 
       &::before {
         content: '';
@@ -153,43 +172,43 @@
         width: 0.8rem;
         height: 0.8rem;
         border-radius: 50%;
-        background-color: $green;
+        background-color: $d-green;
         flex-shrink: 0;
       }
     }
 
     &--alarm {
-      background-color: rgba($subaccent, 0.06);
-      border: 1px solid rgba($subaccent, 0.22);
+      background-color: rgba($d-red, 0.06);
+      border: 1px solid rgba($d-red, 0.28);
 
       .inditem__body {
-        color: $subaccent;
+        color: $d-red;
 
         &::before {
-          background-color: $subaccent;
+          background-color: $d-red;
         }
       }
     }
 
     &--stop {
-      background-color: rgba($danger, 0.06);
-      border: 1px solid rgba($danger, 0.22);
+      background-color: rgba($d-gray, 0.06);
+      border: 1px solid rgba($d-gray, 0.22);
 
       .inditem__body {
-        color: $danger;
+        color: $d-gray;
 
         &::before {
-          background-color: $danger;
+          background-color: $d-gray;
         }
       }
     }
   }
 }
 
-// 2-column metric grid for the left (system-level) panel
+// 1-column metric grid
 .inditem-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 0.8rem;
 }
 
@@ -202,8 +221,9 @@
   flex-direction: row;
   gap: 1.5rem;
   padding: 1.5rem;
-  background-color: $mainbg;
-  border-radius: 6px;
+  background-color: $d-bg-card;
+  border-radius: 10px;
+  border: 1px solid $d-border;
 
   &__left {
     flex: 0 0 30rem;
@@ -228,8 +248,8 @@
 // ================================================================
 
 .indiimage {
-  background-color: $mainbg;
-  border-radius: 6px;
+  background-color: #ffffff;
+  border-radius: 8px;
   padding: 1rem;
   display: flex;
   justify-content: center;
@@ -248,11 +268,11 @@
 // ================================================================
 
 .refreshbutton {
-  background-color: $mainbg;
+  background-color: $d-bg-card;
   height: 3.5rem;
   width: 5rem;
-  border: solid 1px $letter;
-  border-radius: 4px;
+  border: solid 1px $d-border;
+  border-radius: 6px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -262,10 +282,11 @@
 
   &__icon {
     font-size: 3rem !important;
+    color: $d-blue;
   }
 
   &:hover {
-    background-color: $subbg;
+    background-color: $d-bg;
   }
 }
 
@@ -273,42 +294,45 @@
 // Responsive Breakpoints
 // ================================================================
 
-// ① Room lower stacks: left panel full-width, packages single column
-//    KEY FIX: align-self: stretch overrides flex-start so the right
-//    panel fills the full horizontal width in a column flex context.
 @media screen and (max-width: 1385px) {
+  .dashboard {
+    width: 92%;
+  }
+
   .room__lower {
     flex-direction: column;
 
     &__left {
       width: 100%;
       box-sizing: border-box;
+      border-right: none;
+      border-bottom: 1px solid $d-border;
     }
 
     &__right {
       margin: 0 1.5rem 1.5rem;
-      align-self: stretch; // ← fix: was flex-start, caused narrow width
+      align-self: stretch;
       box-sizing: border-box;
       grid-template-columns: 1fr;
     }
   }
 
-  // Full-width left panel: spread all 6 metrics across one row automatically
   .inditem-grid {
-    grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
   }
 
-  // Packages are now single-column and wider → use 3 metric columns
   .package__right {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-// ② Package internal layout goes column (image above metrics)
-//    width: 100% explicitly set on both children to guarantee full stretch.
 @media screen and (max-width: 750px) {
+  .dashboard {
+    width: 96%;
+  }
+
   .inditem-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .package {
@@ -316,18 +340,17 @@
 
     &__left {
       flex: none;
-      width: 100%; // explicit: ensure full-width in column context
+      width: 100%;
     }
 
     &__right {
       flex: none;
-      width: 100%; // explicit: ensure full-width in column context
+      width: 100%;
       grid-template-columns: repeat(2, 1fr);
     }
   }
 }
 
-// ③ Narrow mobile: tighten columns
 @media screen and (max-width: 500px) {
   .inditem-grid {
     grid-template-columns: repeat(2, 1fr);
