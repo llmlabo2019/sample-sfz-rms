@@ -1,0 +1,638 @@
+// ----- アラームメインコンテナ -----
+.alarm-main {
+  max-width: 160rem;
+  margin: 0 auto;
+  padding: 4rem 3rem;
+}
+
+// ----- パンくずリスト -----
+.alarm-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  font-size: 1.75rem;
+
+  &__link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--locationtabletitle);
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: $mainaccent;
+    }
+
+    .material-symbols-outlined {
+      font-size: 2rem;
+    }
+  }
+
+  &__separator {
+    font-size: 2rem;
+    color: var(--stop);
+  }
+
+  &__current {
+    color: var(--letter);
+    font-weight: 500;
+  }
+}
+
+@media (max-width: 768px) {
+  .alarm-breadcrumb {
+    font-size: 1.5rem;
+  }
+}
+
+// ----- 情報カード -----
+.alarm-info-section {
+  margin-bottom: 2rem;
+  animation: alarmFadeIn 0.4s ease forwards;
+}
+
+.alarm-info-card {
+  background-color: var(--mainbg);
+  border-radius: 1.25rem;
+  box-shadow: 0 2px 12px $shadow-strong;
+  overflow: visible;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 3rem;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  &__badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  &__update {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+
+    &__time {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.75rem;
+      color: var(--locationtabletitle);
+
+      .material-symbols-outlined {
+        font-size: 2.25rem;
+      }
+    }
+
+    &__btn {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 2rem;
+      background-color: $mainaccent;
+      border: none;
+      border-radius: 0.75rem;
+      font-size: 1.75rem;
+      font-family: inherit;
+      color: #ffffff;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background-color: darken($mainaccent, 10%);
+        transform: translateY(-1px);
+      }
+
+      .material-symbols-outlined {
+        font-size: 2.25rem;
+        transition: transform 0.3s ease;
+      }
+
+      &:hover .material-symbols-outlined {
+        transform: rotate(180deg);
+      }
+    }
+  }
+}
+
+.alarm-info-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  border-radius: 5rem;
+  font-size: 1.75rem;
+  font-weight: 500;
+
+  .material-symbols-outlined {
+    font-size: 2.25rem;
+  }
+
+  &--location {
+    background-color: rgba($mainaccent, 0.1);
+    color: $mainaccent;
+  }
+
+  &--package {
+    background-color: rgba($chiller, 0.1);
+    color: $chiller;
+  }
+
+  &--id {
+    background-color: rgba(#4caf50, 0.1);
+    color: #4caf50;
+  }
+}
+
+[data-theme="dark"] {
+  .alarm-info-badge--location {
+    background-color: rgba($mainaccent, 0.15);
+  }
+
+  .alarm-info-badge--package {
+    background-color: rgba($chiller, 0.15);
+  }
+
+  .alarm-info-badge--id {
+    background-color: rgba(#66bb6a, 0.15);
+  }
+}
+
+// ----- サマリーカード -----
+.alarm-summary-section {
+  margin-bottom: 2rem;
+  animation: alarmFadeIn 0.4s ease forwards;
+  animation-delay: 0.1s;
+}
+
+.alarm-summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+  gap: 2rem;
+}
+
+.alarm-summary-card {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 2.5rem;
+  background-color: var(--mainbg);
+  border-radius: 1.25rem;
+  box-shadow: 0 2px 12px $shadow-strong;
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px $shadow-strong;
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 6rem;
+    height: 6rem;
+    border-radius: 1rem;
+    flex-shrink: 0;
+
+    .material-symbols-outlined {
+      font-size: 3.5rem;
+    }
+  }
+
+  &--active &__icon {
+    background-color: rgba($alarm, 0.1);
+    color: $alarm;
+  }
+
+  &--cleared &__icon {
+    background-color: rgba(#4caf50, 0.1);
+    color: #4caf50;
+  }
+
+  &--total &__icon {
+    background-color: rgba($chiller, 0.1);
+    color: $chiller;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__value {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--letter);
+    line-height: 1.2;
+  }
+
+  &__label {
+    font-size: 1.75rem;
+    color: var(--locationtabletitle);
+  }
+}
+
+[data-theme="dark"] {
+  .alarm-summary-card--active .alarm-summary-card__icon {
+    background-color: rgba($alarm, 0.15);
+  }
+
+  .alarm-summary-card--cleared .alarm-summary-card__icon {
+    background-color: rgba(#66bb6a, 0.15);
+  }
+
+  .alarm-summary-card--total .alarm-summary-card__icon {
+    background-color: rgba($chiller, 0.15);
+  }
+}
+
+// ----- 警報カード -----
+.alarm-list-section {
+  margin-bottom: 2rem;
+  animation: alarmFadeIn 0.4s ease forwards;
+  animation-delay: 0.2s;
+}
+
+.alarm-list-card {
+  background-color: var(--mainbg);
+  border-radius: 1.25rem;
+  box-shadow: 0 2px 12px $shadow-strong;
+  overflow: hidden;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 3rem;
+    border-bottom: 1px solid var(--border-light);
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 2.25rem;
+    font-weight: 600;
+    color: var(--letter);
+
+    .material-symbols-outlined {
+      font-size: 2.75rem;
+      color: $mainaccent;
+    }
+  }
+
+  &__filters {
+    display: flex;
+    gap: 2rem;
+  }
+
+  &__body {
+    padding: 0;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 1.5rem 3rem;
+    background-color: var(--subbg);
+    border-top: 1px solid var(--border-light);
+  }
+}
+
+// ----- フィルター -----
+.alarm-filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  &__label {
+    font-size: 1.5rem;
+    color: var(--locationtabletitle);
+  }
+
+  &__select {
+    padding: 1rem 3rem 1rem 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    font-size: 1.75rem;
+    font-family: inherit;
+    color: var(--letter);
+    background-color: var(--mainbg);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23555' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+
+    &:hover,
+    &:focus {
+      border-color: $mainaccent;
+      outline: none;
+    }
+  }
+}
+
+// ----- 警報テーブル -----
+.alarm-table-wrapper {
+  overflow-x: auto;
+  max-height: 60rem;
+}
+
+.alarm-table {
+  width: 100%;
+  border-collapse: collapse;
+  white-space: nowrap;
+
+  &__th {
+    position: sticky;
+    top: 0;
+    padding: 1.5rem 2rem;
+    background-color: var(--subbg);
+    border-bottom: 2px solid var(--border);
+    font-size: 1.75rem;
+    font-weight: 600;
+    text-align: center;
+    color: var(--letter);
+    z-index: 10;
+
+    &:first-child {
+      width: 12rem;
+    }
+
+    &:nth-child(2) {
+      text-align: left;
+      padding-left: 3rem;
+    }
+  }
+
+  &__row {
+    transition: background-color 0.15s ease;
+
+    &:hover {
+      background-color: var(--subbg);
+    }
+
+    &--active {
+      background-color: rgba($alarm, 0.08);
+      animation: highlightRow 2s ease-in-out infinite;
+
+      &:hover {
+        background-color: rgba($alarm, 0.12);
+      }
+    }
+
+    &--cleared {
+      background-color: transparent;
+    }
+  }
+
+  &__td {
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--border-light);
+    font-size: 1.75rem;
+    text-align: center;
+    color: var(--letter);
+
+    &--description {
+      text-align: left;
+      padding-left: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    &--time {
+      font-family: "Consolas", "Monaco", monospace;
+      font-size: 1.6rem;
+      color: var(--locationtabletitle);
+    }
+  }
+}
+
+@keyframes highlightRow {
+  0%,
+  100% {
+    background-color: rgba($alarm, 0.08);
+  }
+  50% {
+    background-color: rgba($alarm, 0.04);
+  }
+}
+
+[data-theme="dark"] .alarm-table__row--active {
+  animation: highlightRowDark 2s ease-in-out infinite;
+}
+
+@keyframes highlightRowDark {
+  0%,
+  100% {
+    background-color: rgba($alarm, 0.12);
+  }
+  50% {
+    background-color: rgba($alarm, 0.06);
+  }
+}
+
+// ----- アラームアイコン -----
+.alarm-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  background-color: $alarm;
+  flex-shrink: 0;
+
+  .material-symbols-outlined {
+    font-size: 2rem;
+    color: #ffffff;
+  }
+
+  &--cleared {
+    background-color: #4caf50;
+  }
+}
+
+// ----- アラームステータス -----
+.alarm-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1.25rem;
+  border-radius: 5rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+
+  &--active {
+    background-color: $alarm;
+    color: #ffffff;
+  }
+
+  &--active &__dot {
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
+    background-color: #ffffff;
+    animation: pulse 1s infinite;
+  }
+
+  &--cleared {
+    background-color: rgba(#4caf50, 0.1);
+    color: #4caf50;
+
+    .material-symbols-outlined {
+      font-size: 1.75rem;
+    }
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.2);
+  }
+}
+
+// ----- 警報情報 -----
+.alarm-table-info {
+  font-size: 1.75rem;
+  color: var(--locationtabletitle);
+}
+
+// ----- 空状態 -----
+.alarm-empty-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8rem 4rem;
+  background-color: var(--mainbg);
+  border-radius: 1.25rem;
+  box-shadow: 0 2px 12px $shadow-strong;
+
+  &__content {
+    text-align: center;
+  }
+
+  &__icon {
+    font-size: 8rem;
+    color: #4caf50;
+    margin-bottom: 2rem;
+  }
+
+  &__title {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--letter);
+    margin-bottom: 1rem;
+  }
+
+  &__description {
+    font-size: 1.75rem;
+    color: var(--locationtabletitle);
+  }
+}
+
+// ----- アニメーション -----
+@keyframes alarmFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ----- レスポンシブ対応 -----
+@media (max-width: 1024px) {
+  .alarm-main {
+    padding: 1rem 2rem 4rem;
+  }
+
+  .alarm-summary-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .alarm-main {
+    padding: 1rem 1.5rem 4rem;
+  }
+
+  .alarm-breadcrumb {
+    font-size: 1.5rem;
+  }
+
+  .alarm-info-card__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .alarm-info-card__badges {
+    width: 100%;
+  }
+
+  .alarm-info-badge {
+    font-size: 1.5rem;
+    padding: 0.75rem 1.5rem;
+  }
+
+  .alarm-info-card__update {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .alarm-summary-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .alarm-summary-card {
+    padding: 2rem;
+  }
+
+  .alarm-list-card__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .alarm-list-card__filters {
+    width: 100%;
+  }
+
+  .alarm-filter-group {
+    flex: 1;
+  }
+
+  .alarm-filter-group__select {
+    width: 100%;
+  }
+
+  .alarm-table__th,
+  .alarm-table__td {
+    padding: 1.25rem 1.5rem;
+    font-size: 1.5rem;
+  }
+
+  .alarm-table__td--time {
+    font-size: 1.4rem;
+  }
+}

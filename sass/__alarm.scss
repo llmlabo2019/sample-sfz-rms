@@ -1,181 +1,574 @@
-//alarmhistory
+// ================================================================
+// Alarm page — green-yellow vegetable theme
+// ================================================================
 
-.alarmhistory {
+$alm-green:        rgb(80, 140, 30);
+$alm-green-light:  rgb(128, 185, 36);
+$alm-red:          rgb(195, 45, 30);
+$alm-bg:           #ffffff;
+$alm-border:       rgba(90, 150, 25, 0.20);
+$alm-border-light: rgba(90, 150, 25, 0.12);
+$alm-letter:       #2a3a10;
+$alm-subletter:    rgba(45, 75, 15, 0.62);
+$alm-shadow:       rgba(80, 140, 30, 0.12);
+$alm-gradient:     linear-gradient(135deg, #fdf0ee 0%, #f5fbe6 30%, #f8fbe0 55%, #fefce8 80%, #fff8e0 100%);
+
+// ----------------------------------------------------------------
+// ページラッパー
+// ----------------------------------------------------------------
+
+.alarms-page {
   width: 100%;
-  height: 100%;
-  &__wrapper {
-    width: 96%;
-    margin: 0 auto;
-    height: 100%;
-    &__contents {
-      width: 100%;
-      height: 100%;
-      &__content {
-        width: 100%;
-        height: 100%;
-        &__topmenu {
-          padding-top: 2rem;
-          display: flex;
-          flex-direction: row;
-          justify-content: space-between;
-          align-items: center;
-          flex-wrap: wrap;
-          gap: 1rem;
-          &__left {
-            display: flex;
-            flex-direction: row;
-            justify-content: flex-start;
-            align-items: center;
-            margin-top: 1rem;
-          }
-          &__right {
-            display: flex;
-            flex-direction: row;
-            justify-content: flex-end;
-            align-items: center;
-            margin-top: 1rem;
-          }
-          &__title {
-            font-size: 2.5rem;
-            color: #555555;
-          }
+}
+
+// ----------------------------------------------------------------
+// メインコンテナ
+// ----------------------------------------------------------------
+
+.alarm-main {
+  max-width: 180rem;
+  margin: 0 auto;
+  padding: 3rem 3rem 6rem;
+}
+
+// ----------------------------------------------------------------
+// 情報カード
+// ----------------------------------------------------------------
+
+.alarm-info-section {
+  margin-bottom: 2rem;
+  animation: alarmFadeIn 0.4s ease forwards;
+}
+
+.alarm-info-card {
+  background-color: $alm-bg;
+  border-radius: 1.25rem;
+  border: 1px solid $alm-border;
+  box-shadow: 0 2px 12px $alm-shadow;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 3rem;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  &__badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  &__update {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+
+    &__time {
+      font-size: 1.75rem;
+      color: $alm-subletter;
+    }
+
+    &__btn {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 2rem;
+      background: linear-gradient(135deg, rgba($alm-green, 0.88) 0%, rgba($alm-green-light, 0.88) 100%);
+      border: none;
+      border-radius: 0.75rem;
+      font-size: 1.75rem;
+      font-family: inherit;
+      color: #ffffff;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      svg {
+        font-size: 2.25rem !important;
+        transition: transform 0.3s ease;
+      }
+
+      &:hover {
+        background: linear-gradient(135deg, rgba($alm-green, 1) 0%, rgba($alm-green-light, 1) 100%);
+        transform: translateY(-1px);
+
+        svg {
+          transform: rotate(180deg);
         }
       }
     }
   }
 }
 
-.alarms {
-  margin-top: 2rem;
-  width: 100%;
-  height: 70vh;
+.alarm-info-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.9rem 2rem;
+  border-radius: 5rem;
+  font-size: 1.75rem;
+  font-weight: 500;
+
+  &--package {
+    background: $alm-gradient;
+    color: darken($alm-green, 5%);
+    border: 1px solid rgba($alm-green-light, 0.40);
+  }
+
+  &--id {
+    background-color: rgba($alm-green-light, 0.12);
+    color: darken($alm-green-light, 18%);
+    border: 1px solid rgba($alm-green-light, 0.28);
+  }
+}
+
+// ----------------------------------------------------------------
+// サマリーカード
+// ----------------------------------------------------------------
+
+.alarm-summary-section {
+  margin-bottom: 2rem;
+  animation: alarmFadeIn 0.4s ease forwards;
+  animation-delay: 0.1s;
+}
+
+.alarm-summary-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.alarm-summary-card {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 2.5rem;
+  background-color: $alm-bg;
+  border-radius: 1.25rem;
+  border: 1px solid $alm-border;
+  box-shadow: 0 2px 12px $alm-shadow;
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px $alm-shadow;
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 6rem;
+    height: 6rem;
+    border-radius: 1rem;
+    flex-shrink: 0;
+
+    svg {
+      font-size: 3.5rem !important;
+    }
+  }
+
+  &--active &__icon {
+    background-color: rgba($alm-red, 0.10);
+    color: $alm-red;
+  }
+
+  &--cleared &__icon {
+    background-color: rgba($alm-green, 0.10);
+    color: $alm-green;
+  }
+
+  &--total &__icon {
+    background-color: rgba($alm-green-light, 0.14);
+    color: darken($alm-green-light, 12%);
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__value {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: $alm-letter;
+    line-height: 1.2;
+  }
+
+  &__label {
+    font-size: 1.75rem;
+    color: $alm-subletter;
+  }
+}
+
+// ----------------------------------------------------------------
+// 警報リストカード
+// ----------------------------------------------------------------
+
+.alarm-list-section {
+  margin-bottom: 2rem;
+  animation: alarmFadeIn 0.4s ease forwards;
+  animation-delay: 0.2s;
+}
+
+.alarm-list-card {
+  background-color: $alm-bg;
+  border-radius: 1.25rem;
+  border: 1px solid $alm-border;
+  box-shadow: 0 2px 12px $alm-shadow;
+  overflow: hidden;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 3rem;
+    border-bottom: 1px solid $alm-border-light;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 2.25rem;
+    font-weight: 600;
+    color: $alm-letter;
+
+    svg {
+      font-size: 2.75rem !important;
+      color: $alm-green;
+    }
+  }
+
+  &__filters {
+    display: flex;
+    gap: 2rem;
+  }
+
   &__body {
+    padding: 0;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 1.5rem 3rem;
+    background: $alm-gradient;
+    border-top: 1px solid $alm-border-light;
+  }
+}
+
+// ----------------------------------------------------------------
+// フィルター
+// ----------------------------------------------------------------
+
+.alarm-filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  &__label {
+    font-size: 1.5rem;
+    color: $alm-subletter;
+  }
+
+  &__select {
+    padding: 1rem 3.5rem 1rem 1.5rem;
+    border: 1px solid $alm-border;
+    border-radius: 0.75rem;
+    font-size: 1.75rem;
+    font-family: inherit;
+    color: $alm-letter;
+    background-color: $alm-bg;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%235a9620' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+
+    &:hover,
+    &:focus {
+      border-color: $alm-green;
+      outline: none;
+    }
+  }
+}
+
+// ----------------------------------------------------------------
+// 警報テーブル
+// ----------------------------------------------------------------
+
+.alarm-table-wrapper {
+  overflow-x: auto;
+  max-height: 60rem;
+}
+
+.alarm-table {
+  width: 100%;
+  border-collapse: collapse;
+  white-space: nowrap;
+
+  &__th {
+    position: sticky;
+    top: 0;
+    padding: 1.5rem 2rem;
+    background-color: rgba(255, 249, 200, 0.65);
+    border-bottom: 2px solid $alm-border;
+    font-size: 1.75rem;
+    font-weight: 600;
+    text-align: center;
+    color: $alm-letter;
+    z-index: 10;
+
+    &--left {
+      text-align: left;
+      padding-left: 3rem;
+    }
+
+    &:first-child {
+      width: 13rem;
+    }
+  }
+
+  &__row {
+    transition: background-color 0.15s ease;
+
+    &:hover {
+      background-color: rgba($alm-green, 0.04);
+    }
+
+    &--active {
+      background-color: rgba($alm-red, 0.06);
+      animation: alarmHighlight 2.4s ease-in-out infinite;
+
+      &:hover {
+        background-color: rgba($alm-red, 0.10);
+      }
+    }
+
+    &--cleared {
+      background-color: transparent;
+    }
+  }
+
+  &__td {
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid $alm-border-light;
+    font-size: 1.75rem;
+    text-align: center;
+    color: $alm-letter;
+
+    &--description {
+      text-align: left;
+      padding-left: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      white-space: normal;
+    }
+
+    &--time {
+      font-family: "Consolas", "Monaco", monospace;
+      font-size: 1.6rem;
+      color: $alm-subletter;
+    }
+  }
+}
+
+@keyframes alarmHighlight {
+  0%, 100% { background-color: rgba($alm-red, 0.06); }
+  50%       { background-color: rgba($alm-red, 0.02); }
+}
+
+// ----------------------------------------------------------------
+// 警報アイコン
+// ----------------------------------------------------------------
+
+.alarm-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 50%;
+  background-color: $alm-red;
+  flex-shrink: 0;
+
+  svg {
+    font-size: 1.8rem !important;
+    color: #ffffff;
+  }
+
+  &--cleared {
+    background-color: $alm-green;
+  }
+}
+
+// ----------------------------------------------------------------
+// ステータスバッジ
+// ----------------------------------------------------------------
+
+.alarm-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1.25rem;
+  border-radius: 5rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+
+  &--active {
+    background-color: $alm-red;
+    color: #ffffff;
+  }
+
+  &--active &__dot {
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
+    background-color: #ffffff;
+    animation: alarmPulse 1.2s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+
+  &--cleared {
+    background-color: rgba($alm-green, 0.12);
+    color: $alm-green;
+    border: 1px solid rgba($alm-green, 0.28);
+
+    svg {
+      font-size: 1.75rem !important;
+    }
+  }
+}
+
+@keyframes alarmPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(1.3); }
+}
+
+// ----------------------------------------------------------------
+// テーブル情報
+// ----------------------------------------------------------------
+
+.alarm-table-info {
+  font-size: 1.75rem;
+  color: $alm-subletter;
+}
+
+// ----------------------------------------------------------------
+// 空状態
+// ----------------------------------------------------------------
+
+.alarm-empty-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8rem 4rem;
+
+  &__content {
+    text-align: center;
+  }
+
+  &__icon {
+    font-size: 8rem !important;
+    color: $alm-green;
+    margin-bottom: 2rem;
+  }
+
+  &__title {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: $alm-letter;
+    margin-bottom: 1rem;
+  }
+
+  &__description {
+    font-size: 1.75rem;
+    color: $alm-subletter;
+  }
+}
+
+// ----------------------------------------------------------------
+// アニメーション
+// ----------------------------------------------------------------
+
+@keyframes alarmFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+// ----------------------------------------------------------------
+// レスポンシブ
+// ----------------------------------------------------------------
+
+@media (max-width: 1024px) {
+  .alarm-main {
+    padding: 1rem 2rem 4rem;
+  }
+
+  .alarm-summary-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .alarm-main {
+    padding: 1rem 1.5rem 4rem;
+  }
+
+  .alarm-info-card__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .alarm-info-card__badges {
     width: 100%;
-    height: 100%;
-    background-color: $mainbg;
-    box-shadow: 0 4px 20px rgba(26, 58, 160, 0.10), 0 1px 4px rgba(26, 58, 160, 0.06);
-    border-radius: 10px;
-    overflow: auto;
-    position: relative;
-    table {
-      width: 100%;
-      min-width: 60rem;
-      border-collapse: collapse;
-      position: relative;
-      tbody {
-        width: 100%;
-        tr {
-          height: 5rem;
-          font-size: 2rem;
-          th {
-            width: 25%;
-            font-size: 1.6rem;
-            font-weight: 600;
-            text-align: center;
-            color: #1a3260;
-            letter-spacing: 0.04em;
-            padding: 1rem 1.5rem;
-            white-space: nowrap;
-            position: sticky;
-            top: 0;
-            background-color: #e8eef8;
-            border-right: solid 1px rgba(100, 150, 230, 0.20);
-            &:first-child {
-              width: 30%;
-            }
-          }
-          td {
-            font-size: 2rem;
-            text-align: center;
-            min-width: 10rem;
-            padding: 0.8rem 1.5rem;
-            color: $letter;
-            border-bottom: dotted 1px rgba($color: #555555, $alpha: 0.3);
-            &:first-child {
-              text-align: start;
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-// ① タブレット
-@media screen and (max-width: 768px) {
-  .alarmhistory {
-    &__wrapper {
-      width: 100%;
-      padding: 0 1.5rem;
-      box-sizing: border-box;
-    }
   }
 
-  .alarms {
-    height: 65vh;
-    &__body {
-      border-radius: 6px;
-      table {
-        min-width: 50rem;
-        tbody {
-          tr {
-            height: 4rem;
-            th {
-              font-size: 1.6rem;
-              padding: 0.8rem 1rem;
-            }
-            td {
-              font-size: 1.6rem;
-              min-width: 8rem;
-              padding: 0.6rem 1rem;
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-// ② スマートフォン
-@media screen and (max-width: 480px) {
-  .alarmhistory {
-    &__wrapper {
-      &__contents {
-        &__content {
-          &__topmenu {
-            flex-direction: column;
-            align-items: flex-start;
-            &__right {
-              width: 100%;
-              justify-content: flex-start;
-            }
-          }
-        }
-      }
-    }
+  .alarm-info-card__update {
+    width: 100%;
+    justify-content: space-between;
   }
 
-  .alarms {
-    height: 60vh;
-    &__body {
-      border-radius: 0;
-      table {
-        min-width: 40rem;
-        tbody {
-          tr {
-            height: 3.5rem;
-            th {
-              font-size: 1.4rem;
-              padding: 0.6rem 0.8rem;
-            }
-            td {
-              font-size: 1.4rem;
-              min-width: 6rem;
-              padding: 0.5rem 0.8rem;
-            }
-          }
-        }
-      }
-    }
+  .alarm-summary-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .alarm-summary-card {
+    padding: 2rem;
+  }
+
+  .alarm-list-card__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .alarm-list-card__filters {
+    width: 100%;
+  }
+
+  .alarm-filter-group {
+    flex: 1;
+  }
+
+  .alarm-filter-group__select {
+    width: 100%;
+  }
+
+  .alarm-table__th,
+  .alarm-table__td {
+    padding: 1.25rem 1.5rem;
+    font-size: 1.5rem;
+  }
+
+  .alarm-table__td--time {
+    font-size: 1.4rem;
   }
 }

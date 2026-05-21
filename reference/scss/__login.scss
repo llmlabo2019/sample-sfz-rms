@@ -1,0 +1,349 @@
+.login {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: $gradient-bg;
+  position: relative;
+  overflow: hidden;
+  &__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    overflow: hidden;
+    &__shape {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.1;
+    }
+    &__shape--1 {
+      width: 60rem;
+      height: 60rem;
+      background: $mainbg;
+      top: -20rem;
+      right: -10rem;
+      animation: float 20s ease-in-out infinite;
+    }
+    &__shape--2 {
+      width: 40rem;
+      height: 40rem;
+      background: $mainbg;
+      bottom: -15rem;
+      left: -10rem;
+      animation: float 25s ease-in-out infinite reverse;
+    }
+    &__shape--3 {
+      width: 25rem;
+      height: 25rem;
+      background: $mainbg;
+      top: 50%;
+      left: 10%;
+      animation: float 18s ease-in-out infinite;
+    }
+  }
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 4rem;
+    position: relative;
+    z-index: 10;
+    img {
+      height: 8rem;
+      width: auto;
+      filter: brightness(0) invert(1);
+    }
+  }
+  .material-symbols-outlined {
+    font-size: 2.5rem;
+  }
+  &__body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    z-index: 10;
+    &__card {
+      width: 100%;
+      max-width: 40rem;
+      background-color: $mainbg;
+      border-radius: 2rem;
+      box-shadow: 0 20px 60px $shadow-strong;
+      padding: 4rem 3rem;
+      animation: slideUp 0.5s ease forwards;
+      &__header {
+        text-align: center;
+        margin-bottom: 4rem;
+        &__logo {
+          height: 10rem;
+          width: auto;
+          margin-bottom: 2rem;
+        }
+        &__subtitle {
+          font-size: 1.75rem;
+          color: $letter;
+        }
+      }
+      &__items {
+        display: flex;
+        flex-direction: column;
+        gap: 2.5rem;
+        &__item {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+          &__label {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.75rem;
+            font-weight: 500;
+            color: $letter;
+          }
+          .material-symbols-outlined {
+            font-size: 2.25rem;
+            color: $mainaccent;
+          }
+          &__wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            &__input {
+              width: 100%;
+              height: 6rem;
+              padding: 0 2rem;
+              padding-right: 5rem;
+              border: 2px solid $border;
+              border-radius: 1rem;
+              font-size: 2rem;
+              font-family: inherit;
+              color: $letter;
+              background-color: $subbg;
+              outline: none;
+              transition: all 0.2s ease;
+              &::placeholder {
+                color: $letter;
+                font-size: 1.75rem;
+              }
+              &:focus {
+                border-color: $mainaccent;
+                background-color: $mainbg;
+                box-shadow: 0 0 0 4px rgba(204, 84, 58, 0.1);
+              }
+            }
+            &__toggle {
+              position: absolute;
+              right: 1.5rem;
+              background: none;
+              border: none;
+              color: $letter;
+              cursor: pointer;
+              padding: 0.5rem;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              transition: color 0.2s ease;
+              &:hover {
+                color: $mainaccent;
+              }
+              .material-symbols-outlined {
+                font-size: 2.5rem;
+              }
+            }
+          }
+          &__input {
+            width: 100%;
+            height: 100%;
+            border: solid 1px $mainaccent;
+            padding: 0 1rem;
+            font-size: 2rem;
+            color: $letter;
+            outline: none;
+            &::placeholder {
+              font-weight: 400;
+              color: #aaa;
+              font-size: 1.5rem;
+            }
+            &:focus {
+              border: solid 2px $mainaccent;
+            }
+          }
+          &__button {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background-color: $mainaccent;
+            padding: 0 1.2rem;
+            font-size: 1.5rem;
+            color: $mainbg;
+            font-weight: 400;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            &:hover {
+              background-color: rgba($color: $mainaccent, $alpha: 0.8);
+            }
+          }
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+        &__submit {
+          height: 6rem;
+          background: $gradient-primary;
+          border: none;
+          border-radius: 1rem;
+          color: #ffffff;
+          font-size: 2rem;
+          font-weight: 600;
+          font-family: inherit;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 1rem;
+          transition: all 0.2s ease;
+          box-shadow: 0 4px 15px rgba(204, 84, 58, 0.35);
+          position: relative;
+          overflow: hidden;
+          margin-top: 1rem;
+          &__icon {
+            font-size: 2.5rem;
+            transition: transform 0.2s ease;
+          }
+          &:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(204, 84, 58, 0.45);
+          }
+          &:active:not(:disabled) {
+            transform: translateY(0);
+          }
+          &:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+          }
+          &:hover:not(:disabled) &__icon {
+            transform: translateX(3px);
+          }
+        }
+      }
+    }
+  }
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 4rem;
+    position: relative;
+    z-index: 10;
+    flex-wrap: wrap;
+    gap: 1rem;
+    &__copyright {
+      font-size: 1.5rem;
+      color: rgba(255, 255, 255, 0.8);
+    }
+    &__links {
+      display: flex;
+      gap: 2rem;
+    }
+    &__link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.5rem;
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      padding: 1rem 2rem;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 0.5rem;
+      transition: all 0.2s ease;
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+      }
+      .material-symbols-outlined {
+        font-size: 2rem;
+      }
+      &__external {
+        font-size: 1.5rem !important;
+        opacity: 0.7;
+      }
+    }
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =============================================
+   入力フォーカス時のアニメーション
+   ============================================= */
+.login__body__card__items__item__wrapper__input:focus
+  + .login__body__card__items__item__wrapper__toggle {
+  color: $mainaccent;
+}
+
+/* フォーカス可視化（アクセシビリティ） */
+.login__body__card__items__item__wrapper__input:focus-visible,
+.login__body__card__items__submit:focus-visible {
+  outline: 2px solid $mainaccent;
+  outline-offset: 2px;
+}
+
+/* =============================================
+   レスポンシブ対応
+   ============================================= */
+@media (max-width: 600px) {
+  .login {
+    &__header {
+      padding: 2rem;
+      img {
+        height: 6rem;
+      }
+    }
+
+    &__body {
+      &__card {
+        padding: 4rem 3rem;
+        border-radius: 1.5rem;
+        &__header {
+          &__logo {
+            height: 8rem;
+          }
+        }
+      }
+    }
+
+    &__footer {
+      flex-direction: column;
+      text-align: center;
+      padding: 2rem;
+      &__links {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  }
+}

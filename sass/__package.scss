@@ -1,0 +1,722 @@
+// ================================================================
+// Package / Datas page — green-yellow vegetable theme
+// ================================================================
+
+$pkg-green:        rgb(80, 140, 30);
+$pkg-green-light:  rgb(128, 185, 36);
+$pkg-yellow:       rgb(220, 200, 0);
+$pkg-bg:           #ffffff;
+$pkg-subbg:        rgba(245, 251, 230, 0.65);
+$pkg-gradient:     linear-gradient(135deg, #fdf0ee 0%, #f5fbe6 30%, #f8fbe0 55%, #fefce8 80%, #fff8e0 100%);
+$pkg-border:       rgba(90, 150, 25, 0.20);
+$pkg-border-light: rgba(90, 150, 25, 0.12);
+$pkg-letter:       #2a3a10;
+$pkg-subletter:    rgba(45, 75, 15, 0.62);
+$pkg-shadow:       rgba(80, 140, 30, 0.12);
+
+// ----------------------------------------------------------------
+// メインコンテナ
+// ----------------------------------------------------------------
+
+.package-main {
+  max-width: 180rem;
+  margin: 0 auto;
+  padding: 3rem 3rem 6rem;
+}
+
+// ----------------------------------------------------------------
+// 情報カード
+// ----------------------------------------------------------------
+
+.package-info-section {
+  margin-bottom: 2rem;
+  animation: packageFadeIn 0.4s ease forwards;
+  position: relative;
+  z-index: 100;
+}
+
+.package-info-card {
+  background-color: $pkg-bg;
+  border-radius: 1.25rem;
+  border: 1px solid $pkg-border;
+  box-shadow: 0 2px 12px $pkg-shadow;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 3rem;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  &__badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  &__date {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+
+    &__label {
+      font-size: 1.75rem;
+      color: $pkg-subletter;
+      font-weight: 500;
+    }
+
+    &__input {
+      padding: 0.8rem 1.5rem;
+      border: 1px solid $pkg-border;
+      border-radius: 0.75rem;
+      font-size: 1.75rem;
+      font-family: inherit;
+      color: $pkg-letter;
+      background-color: $pkg-bg;
+      cursor: pointer;
+      text-align: center;
+
+      &:focus {
+        outline: none;
+        border-color: $pkg-green;
+      }
+    }
+  }
+}
+
+.package-info-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.9rem 2rem;
+  border-radius: 5rem;
+  font-size: 1.75rem;
+  font-weight: 500;
+
+  &--package {
+    background: $pkg-gradient;
+    color: darken($pkg-green, 5%);
+    border: 1px solid rgba($pkg-green-light, 0.40);
+  }
+
+  &--id {
+    background-color: rgba($pkg-green-light, 0.12);
+    color: darken($pkg-green-light, 18%);
+    border: 1px solid rgba($pkg-green-light, 0.28);
+  }
+}
+
+// ----------------------------------------------------------------
+// react-datepicker — カレンダーヘッダー・当日強調色オーバーライド
+// ----------------------------------------------------------------
+
+.react-datepicker__day--today {
+  background: linear-gradient(135deg, $pkg-green 0%, $pkg-green-light 100%) !important;
+  color: #ffffff !important;
+  border-radius: 0.3rem;
+  font-weight: 700;
+}
+
+.react-datepicker__day--today:hover {
+  background: linear-gradient(135deg, darken($pkg-green, 8%) 0%, $pkg-green 100%) !important;
+}
+
+// ----------------------------------------------------------------
+// グラフカード
+// ----------------------------------------------------------------
+
+.package-chart-section {
+  margin-bottom: 2rem;
+  animation: packageFadeIn 0.4s ease forwards;
+  animation-delay: 0.1s;
+  position: relative;
+  z-index: 1;
+}
+
+.package-chart-card {
+  background-color: $pkg-bg;
+  border-radius: 1.25rem;
+  border: 1px solid $pkg-border;
+  box-shadow: 0 2px 12px $pkg-shadow;
+  overflow: hidden;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 3rem;
+    border-bottom: 1px solid $pkg-border-light;
+  }
+
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 2.25rem;
+    font-weight: 600;
+    color: $pkg-letter;
+
+    svg {
+      font-size: 2.75rem !important;
+      color: $pkg-green;
+    }
+  }
+
+  &__controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.25rem 2rem;
+    background: $pkg-gradient;
+    border: 1px solid $pkg-border;
+    border-radius: 0.75rem;
+    font-size: 1.75rem;
+    font-family: inherit;
+    color: $pkg-letter;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    svg {
+      font-size: 2.25rem !important;
+    }
+
+    &:hover {
+      border-color: $pkg-green;
+      color: $pkg-green;
+    }
+
+    &__arrow {
+      transition: transform 0.2s ease;
+    }
+
+    &.active {
+      background: linear-gradient(135deg, rgba($pkg-green, 0.12) 0%, rgba($pkg-green-light, 0.12) 100%);
+      border-color: $pkg-green;
+      color: $pkg-green;
+
+      .package-chart-card__toggle__arrow {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  &__body {
+    padding: 2rem 3rem 3rem;
+  }
+}
+
+// ----------------------------------------------------------------
+// グラフ項目選択パネル
+// ----------------------------------------------------------------
+
+.package-chart-selector {
+  display: none;
+  padding: 2rem 3rem;
+  background: $pkg-gradient;
+  border-bottom: 1px solid $pkg-border-light;
+  animation: slideDown 0.3s ease;
+
+  &.active {
+    display: block;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  &__title {
+    font-size: 1.75rem;
+    font-weight: 500;
+    color: $pkg-subletter;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 1rem;
+  }
+
+  &__btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background-color: $pkg-bg;
+    border: 1px solid $pkg-border;
+    border-radius: 0.5rem;
+    font-size: 1.5rem;
+    font-family: inherit;
+    color: $pkg-subletter;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      border-color: $pkg-green;
+      color: $pkg-green;
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(22rem, 1fr));
+    gap: 1rem;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    background-color: $pkg-bg;
+    border: 1px solid $pkg-border;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      border-color: var(--item-color, $pkg-green);
+    }
+
+    input[type="checkbox"] {
+      display: none;
+    }
+  }
+
+  &__checkbox {
+    width: 2.25rem;
+    height: 2.25rem;
+    border: 2px solid $pkg-border;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    position: relative;
+
+    &::after {
+      content: "";
+      width: 1rem;
+      height: 0.5rem;
+      border: 2px solid #ffffff;
+      border-top: none;
+      border-right: none;
+      transform: rotate(-45deg) scale(0);
+      transition: transform 0.2s ease;
+      position: absolute;
+      top: 0.45rem;
+    }
+  }
+
+  &__item input[type="checkbox"]:checked + &__checkbox {
+    background-color: var(--item-color, $pkg-green);
+    border-color: var(--item-color, $pkg-green);
+
+    &::after {
+      transform: rotate(-45deg) scale(1);
+    }
+  }
+
+  &__label {
+    font-size: 1.6rem;
+    color: $pkg-letter;
+  }
+}
+
+// ----------------------------------------------------------------
+// テーブルカード
+// ----------------------------------------------------------------
+
+.package-table-section {
+  margin-bottom: 2rem;
+  animation: packageFadeIn 0.4s ease forwards;
+  animation-delay: 0.2s;
+}
+
+.package-table-card {
+  background-color: $pkg-bg;
+  border-radius: 1.25rem;
+  border: 1px solid $pkg-border;
+  box-shadow: 0 2px 12px $pkg-shadow;
+  overflow: hidden;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 3rem;
+    border-bottom: 1px solid $pkg-border-light;
+  }
+
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 2.25rem;
+    font-weight: 600;
+    color: $pkg-letter;
+
+    svg {
+      font-size: 2.75rem !important;
+      color: $pkg-green;
+    }
+  }
+
+  &__body {
+    padding: 0;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 1.5rem 3rem;
+    background: $pkg-gradient;
+    border-top: 1px solid $pkg-border-light;
+  }
+}
+
+// ----------------------------------------------------------------
+// テーブルコントロール
+// ----------------------------------------------------------------
+
+.package-table-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 3rem;
+  background: $pkg-gradient;
+  border-bottom: 1px solid $pkg-border-light;
+  flex-wrap: wrap;
+  gap: 2rem;
+
+  &__left {
+    display: flex;
+    align-items: flex-end;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.package-table-control {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  &__label {
+    font-size: 1.5rem;
+    color: $pkg-subletter;
+  }
+
+  &__select {
+    padding: 1rem 3.5rem 1rem 1.5rem;
+    border: 1px solid $pkg-border;
+    border-radius: 0.75rem;
+    font-size: 1.75rem;
+    font-family: inherit;
+    color: $pkg-letter;
+    background-color: $pkg-bg;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%235a9620' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+
+    &:hover,
+    &:focus {
+      border-color: $pkg-green;
+      outline: none;
+    }
+  }
+}
+
+.package-table-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  border-radius: 0.75rem;
+  font-size: 1.75rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  svg {
+    font-size: 2.25rem !important;
+  }
+
+  &--secondary {
+    background-color: $pkg-bg;
+    border: 1px solid $pkg-border;
+    color: $pkg-letter;
+
+    &:hover {
+      background: linear-gradient(135deg, rgba($pkg-green, 0.88) 0%, rgba($pkg-green-light, 0.88) 100%);
+      border-color: $pkg-green;
+      color: #ffffff;
+    }
+  }
+
+  &--icon {
+    width: 4.5rem;
+    height: 4.5rem;
+    padding: 0;
+    justify-content: center;
+    background-color: $pkg-bg;
+    border: 1px solid $pkg-border;
+    color: $pkg-letter;
+
+    &:hover {
+      background: linear-gradient(135deg, rgba($pkg-green, 0.88) 0%, rgba($pkg-green-light, 0.88) 100%);
+      border-color: $pkg-green;
+      color: #ffffff;
+      transform: rotate(180deg);
+    }
+  }
+}
+
+// ----------------------------------------------------------------
+// データテーブル
+// ----------------------------------------------------------------
+
+.package-data-table-wrapper {
+  overflow-x: auto;
+  max-height: 60rem;
+}
+
+.package-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  white-space: nowrap;
+
+  &__th {
+    position: sticky;
+    top: 0;
+    padding: 1.5rem 2rem;
+    background-color: $pkg-subbg;
+    border-bottom: 2px solid $pkg-border;
+    font-size: 1.6rem;
+    font-weight: 600;
+    text-align: center;
+    color: $pkg-letter;
+    z-index: 10;
+
+    &--sticky {
+      position: sticky;
+      left: 0;
+      z-index: 20;
+      background-color: $pkg-subbg;
+      box-shadow: 2px 0 4px $pkg-shadow;
+    }
+  }
+
+  &__row {
+    transition: background-color 0.15s ease;
+
+    &:hover {
+      background-color: rgba($pkg-green, 0.04);
+    }
+
+    &:nth-child(even) {
+      background-color: rgba($pkg-green, 0.02);
+    }
+  }
+
+  &__td {
+    padding: 1.25rem 2rem;
+    border-bottom: 1px solid $pkg-border-light;
+    font-size: 1.6rem;
+    text-align: center;
+    color: $pkg-letter;
+
+    &--time {
+      font-family: "Consolas", "Monaco", monospace;
+      font-size: 1.5rem;
+      color: $pkg-subletter;
+      position: sticky;
+      left: 0;
+      background-color: $pkg-bg;
+      box-shadow: 2px 0 4px $pkg-shadow;
+    }
+  }
+
+  &__row:hover &__td--time {
+    background-color: rgba($pkg-green, 0.04);
+  }
+}
+
+// ----------------------------------------------------------------
+// テーブル情報
+// ----------------------------------------------------------------
+
+.package-table-info {
+  font-size: 1.75rem;
+  color: $pkg-subletter;
+}
+
+// ----------------------------------------------------------------
+// ページネーション
+// ----------------------------------------------------------------
+
+.package-pagination {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  &__btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 1.5rem;
+    background-color: $pkg-bg;
+    border: 1px solid $pkg-border;
+    border-radius: 0.75rem;
+    font-size: 1.75rem;
+    font-family: inherit;
+    color: $pkg-letter;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover:not(:disabled) {
+      border-color: $pkg-green;
+      color: $pkg-green;
+    }
+
+    &:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+  }
+
+  &__pages {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &__page {
+    min-width: 4rem;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $pkg-bg;
+    border: 1px solid $pkg-border;
+    border-radius: 0.5rem;
+    font-size: 1.75rem;
+    font-family: inherit;
+    color: $pkg-letter;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      border-color: $pkg-green;
+      color: $pkg-green;
+    }
+
+    &--active {
+      background: linear-gradient(135deg, $pkg-green 0%, $pkg-green-light 100%);
+      border-color: $pkg-green;
+      color: #ffffff;
+
+      &:hover {
+        background: linear-gradient(135deg, $pkg-green 0%, $pkg-green-light 100%);
+        color: #ffffff;
+      }
+    }
+  }
+
+  &__ellipsis {
+    padding: 0 0.5rem;
+    color: $pkg-subletter;
+  }
+}
+
+// ----------------------------------------------------------------
+// アニメーション
+// ----------------------------------------------------------------
+
+@keyframes packageFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+// ----------------------------------------------------------------
+// レスポンシブ
+// ----------------------------------------------------------------
+
+@media (max-width: 1024px) {
+  .package-main {
+    padding: 1rem 2rem 4rem;
+  }
+
+  .package-chart-selector__grid {
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .package-main {
+    padding: 1rem 1.5rem 4rem;
+  }
+
+  .package-info-card__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .package-info-card__badges {
+    width: 100%;
+  }
+
+  .package-chart-card__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .package-chart-card__toggle {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .package-chart-selector__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .package-table-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .package-table-controls__left {
+    justify-content: space-between;
+  }
+
+  .package-table-controls__right {
+    justify-content: center;
+  }
+}
