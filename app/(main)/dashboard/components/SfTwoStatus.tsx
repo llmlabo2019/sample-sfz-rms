@@ -9,18 +9,18 @@ import Image from "next/image";
 import { getData } from "@/utils/getData";
 import { useRouter } from "next/navigation";
 import { useError } from "@/context/ErrorContext";
-import LoadingOverlay from "@/components/LoadingOverlay";
+import { useLoading } from "@/context/LoadingContext";
 import sfzero from "@/images/sf-zero.png";
 
 function SfTwoStatus() {
   const { setError } = useError();
+  const { setLoading } = useLoading();
   const router = useRouter();
 
   const URL = "/package-status-datas-sample-sfz?dataid=sf-zero-2";
 
   const [data, setData] = useState<any>(null);
   const [updateClicked, setUpdateClicked] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     checkUserAndFetchData();
@@ -77,8 +77,6 @@ function SfTwoStatus() {
 
   return (
     <div className="room">
-      <LoadingOverlay isLoading={loading} />
-
       {/* Floating actions */}
       <div className="room__actions">
         <button onClick={() => setUpdateClicked(true)} title="再読み込み">
