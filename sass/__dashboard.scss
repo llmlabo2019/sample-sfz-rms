@@ -1,143 +1,205 @@
-// Blue theme palette
-$d-navy:    #1a3260;
-$d-blue:    #1a5abf;
-$d-accent:  #2878e0;
-$d-bg:      #f5f8ff;
-$d-bg-card: #ffffff;
-$d-border:  rgba(100, 150, 230, 0.22);
-$d-label:   rgba(50, 90, 170, 0.80);
-$d-value:   #1a3260;
-$d-unit:    rgba(50, 90, 170, 0.58);
-$d-green:   #268785;
-$d-red:     #c73e3a;
-$d-gray:    #666666;
+// ================================================================
+// Dashboard — green-yellow vegetable theme
+// ================================================================
+
+$d-green:   rgb(75, 135, 28);
+$d-yellow:  rgb(168, 218, 48);
+$d-red:     rgb(195, 45, 30);
+$d-gray:    rgba(80, 80, 80, 0.55);
+$d-accent:  rgb(128, 185, 36);
+$d-label:   rgba(40, 70, 15, 0.62);
+$d-value:   rgb(25, 50, 8);
+$d-unit:    rgba(55, 95, 18, 0.58);
+$d-border:  rgba(95, 155, 28, 0.18);
+$d-card:    rgba(255, 255, 255, 0.78);
+
+// Light green-tinted page background
+.body:has(.dashboard) {
+  background: linear-gradient(
+    135deg,
+    #fdf0ee 0%,
+    #f5fbe6 30%,
+    #f8fbe0 55%,
+    #fefce8 80%,
+    #fff8e0 100%
+  );
+}
 
 // ================================================================
-// Dashboard Layout
+// Dashboard wrapper
 // ================================================================
 
 .dashboard {
-  width: 94%;
-  max-width: 160rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2.4rem;
+  width: 96%;
+  max-width: 180rem;
 }
 
 // ================================================================
-// Room Card
+// Room — blends with background, no card
 // ================================================================
 
 .room {
-  background-color: $d-bg-card;
-  box-shadow:
-    0 6px 28px rgba(26, 58, 160, 0.10),
-    0 2px 8px  rgba(26, 58, 160, 0.06);
-  border-radius: 14px;
-  border: 1px solid $d-border;
-  overflow: hidden;
   position: relative;
+  padding: 1rem 0 5rem;
 
-  &__upper {
-    background: linear-gradient(135deg, $d-navy 0%, $d-blue 100%);
-    padding: 1.2rem 2.4rem;
-    border-left: 4px solid $d-accent;
+  // Floating action buttons (top-right)
+  &__actions {
+    position: absolute;
+    top: 0.5rem;
+    right: 0;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 0.8rem;
+    z-index: 1;
 
-    &__title {
-      p {
-        font-size: 1.8rem;
-        font-weight: 700;
-        color: #ffffff;
-        letter-spacing: 0.1em;
-      }
-    }
-
-    &__actions {
+    button,
+    a {
       display: flex;
       align-items: center;
-      gap: 0.8rem;
+      justify-content: center;
+      background: linear-gradient(135deg, rgba(75, 135, 28, 0.88) 0%, rgba(145, 195, 40, 0.88) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.30);
+      border-radius: 10px;
+      color: #ffffff;
+      padding: 0.9rem;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 3px 10px rgba(75, 135, 28, 0.28);
+      transition: all 0.2s ease;
 
-      button,
-      a {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: none;
-        border: none;
-        cursor: pointer;
-        color: rgba(255, 255, 255, 0.70);
-        padding: 0.4rem;
-        border-radius: 4px;
-        transition: color 0.15s, background-color 0.15s;
+      &:hover {
+        background: linear-gradient(135deg, rgba(90, 155, 32, 0.96) 0%, rgba(160, 215, 48, 0.96) 100%);
+        transform: translateY(-1px);
+        box-shadow: 0 5px 16px rgba(75, 135, 28, 0.40);
+      }
 
-        &:hover {
-          color: #ffffff;
-          background-color: rgba(255, 255, 255, 0.12);
-        }
-
-        svg {
-          font-size: 2rem;
-        }
+      svg {
+        font-size: 3.2rem;
       }
     }
   }
 
-  &__lower {
+  // Hero: system status + system metrics
+  &__hero {
     display: flex;
-    flex-direction: row;
-    align-items: stretch;
+    flex-direction: column;
+    gap: 2.4rem;
+    padding-top: 1rem;
+    padding-bottom: 3.5rem;
+    margin-bottom: 3rem;
+    border-bottom: 1px solid rgba(95, 155, 28, 0.18);
+  }
 
-    &__left {
-      width: 32rem;
-      flex-shrink: 0;
-      padding: 2rem;
-      background-color: $d-bg;
-      border-right: 1px solid $d-border;
-      display: flex;
-      flex-direction: column;
-      gap: 1.2rem;
-    }
-
-    &__right {
-      flex: 1;
-      min-width: 0;
-      margin: 1.5rem;
-      padding: 1.5rem;
-      border-radius: 10px;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-      background-color: $d-bg;
-    }
+  // Cooler panels grid
+  &__panels {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.4rem;
   }
 }
 
 // ================================================================
-// Indicator Item
+// System status hero
 // ================================================================
 
-.inditem {
-  background-color: $d-bg-card;
-  border: 1px solid $d-border;
-  border-radius: 8px;
-  padding: 0.9rem 1rem;
+.status-hero {
   display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
+  align-items: center;
+  gap: 1.8rem;
 
-  &__title {
-    font-size: 1.4rem;
-    font-weight: 500;
-    color: $d-label;
-    white-space: nowrap;
-    letter-spacing: 0.02em;
+  &__dot {
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50%;
+    background: $d-green;
+    box-shadow: 0 0 8px rgba(75, 135, 28, 0.70), 0 0 20px rgba(75, 135, 28, 0.35);
+    flex-shrink: 0;
+    animation: dot-pulse 2.4s ease-in-out infinite;
   }
 
-  &__body {
-    font-size: 2rem;
+  &__label {
+    font-size: 3.2rem;
+    font-weight: 800;
+    color: $d-green;
+    letter-spacing: 0.06em;
+  }
+
+  &__name {
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: rgba(70, 115, 22, 0.52);
+    letter-spacing: 0.12em;
+    margin-left: 0.5rem;
+    align-self: flex-end;
+    padding-bottom: 0.5rem;
+  }
+
+  &--alarm {
+    .status-hero__dot {
+      background: $d-red;
+      box-shadow: 0 0 8px rgba(195, 45, 30, 0.70), 0 0 20px rgba(195, 45, 30, 0.35);
+    }
+    .status-hero__label { color: $d-red; }
+  }
+
+  &--stop {
+    .status-hero__dot {
+      background: $d-gray;
+      box-shadow: none;
+      animation: none;
+    }
+    .status-hero__label { color: $d-gray; }
+  }
+}
+
+@keyframes dot-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.65; transform: scale(1.3); }
+}
+
+// ================================================================
+// Metric row (4-column system grid)
+// ================================================================
+
+.metric-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.2rem;
+}
+
+// ================================================================
+// Metric card — white frosted glass
+// ================================================================
+
+.metric-card {
+  background: $d-card;
+  border: 1px solid $d-border;
+  border-radius: 10px;
+  padding: 1.4rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  box-shadow: 0 2px 10px rgba(75, 135, 28, 0.08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    border-color: rgba($d-accent, 0.45);
+    box-shadow: 0 4px 16px rgba(75, 135, 28, 0.16);
+  }
+
+  &__label {
+    font-size: 1.3rem;
+    color: $d-label;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__value {
+    font-size: 2.4rem;
     font-weight: 700;
     color: $d-value;
     line-height: 1.1;
@@ -146,217 +208,134 @@ $d-gray:    #666666;
       font-size: 1.2rem;
       font-weight: 400;
       color: $d-unit;
-      margin-left: 0.2rem;
-    }
-  }
-
-  // Status variant
-  &--status {
-    background-color: rgba($d-green, 0.06);
-    border: 1px solid rgba($d-green, 0.28);
-
-    .inditem__title {
-      color: $d-label;
-    }
-
-    .inditem__body {
-      display: flex;
-      align-items: center;
-      gap: 0.7rem;
-      font-size: 1.6rem;
-      color: $d-green;
-
-      &::before {
-        content: '';
-        display: block;
-        width: 0.8rem;
-        height: 0.8rem;
-        border-radius: 50%;
-        background-color: $d-green;
-        flex-shrink: 0;
-      }
-    }
-
-    &--alarm {
-      background-color: rgba($d-red, 0.06);
-      border: 1px solid rgba($d-red, 0.28);
-
-      .inditem__body {
-        color: $d-red;
-
-        &::before {
-          background-color: $d-red;
-        }
-      }
-    }
-
-    &--stop {
-      background-color: rgba($d-gray, 0.06);
-      border: 1px solid rgba($d-gray, 0.22);
-
-      .inditem__body {
-        color: $d-gray;
-
-        &::before {
-          background-color: $d-gray;
-        }
-      }
+      margin-left: 0.3rem;
     }
   }
 }
 
-// 1-column metric grid
-.inditem-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.8rem;
-}
-
 // ================================================================
-// Package Unit
+// Cooler panel — frosted glass card
 // ================================================================
 
-.package {
-  display: flex;
-  flex-direction: row;
-  gap: 1.5rem;
-  padding: 1.5rem;
-  background-color: $d-bg-card;
-  border-radius: 10px;
+.panel {
+  background: $d-card;
   border: 1px solid $d-border;
+  border-radius: 16px;
+  padding: 2.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  box-shadow: 0 4px 20px rgba(75, 135, 28, 0.10);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 
-  &__left {
-    flex: 0 0 30rem;
+  &__head {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    align-items: stretch;
+    align-items: center;
+    gap: 1.8rem;
   }
 
-  &__right {
-    flex: 1;
-    min-width: 0;
+  &__image {
+    display: flex;
+    justify-content: center;
+
+    img {
+      width: 24rem;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 16px rgba(100, 160, 30, 0.20));
+    }
+  }
+
+  &__grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 0.8rem;
-    align-content: start;
   }
 }
 
 // ================================================================
-// Machine Image
+// Status badge — cooler level
 // ================================================================
 
-.indiimage {
-  background-color: #ffffff;
-  border-radius: 8px;
-  padding: 1rem;
+.status-badge {
   display: flex;
-  justify-content: center;
   align-items: center;
-  flex: 1;
+  gap: 1rem;
+  padding: 0.8rem 2rem;
+  border-radius: 100px;
+  background: rgba(75, 135, 28, 0.10);
+  border: 1px solid rgba(75, 135, 28, 0.28);
 
-  img {
+  &__dot {
+    width: 0.9rem;
+    height: 0.9rem;
+    border-radius: 50%;
+    background: $d-green;
+    box-shadow: 0 0 5px rgba(75, 135, 28, 0.70);
+    flex-shrink: 0;
+    animation: dot-pulse 2.4s ease-in-out infinite;
+  }
+
+  &__text {
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: $d-green;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+
+  &--stop {
+    background: rgba(80, 80, 80, 0.07);
+    border-color: rgba(80, 80, 80, 0.18);
+
+    .status-badge__dot {
+      background: $d-gray;
+      box-shadow: none;
+      animation: none;
+    }
+
+    .status-badge__text { color: $d-gray; }
+  }
+
+  &--alarm {
+    background: rgba(195, 45, 30, 0.08);
+    border-color: rgba(195, 45, 30, 0.28);
+
+    .status-badge__dot {
+      background: $d-red;
+      box-shadow: 0 0 5px rgba(195, 45, 30, 0.70);
+    }
+
+    .status-badge__text { color: $d-red; }
+  }
+}
+
+// ================================================================
+// Responsive
+// ================================================================
+
+@media screen and (max-width: 1000px) {
+  .room__panels {
+    grid-template-columns: 1fr;
+  }
+
+  .metric-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .metric-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .panel__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .panel__image img {
     width: 18rem;
-    height: auto;
-    object-fit: contain;
-  }
-}
-
-// ================================================================
-// Refresh Button
-// ================================================================
-
-.refreshbutton {
-  background-color: $d-bg-card;
-  height: 3.5rem;
-  width: 5rem;
-  border: solid 1px $d-border;
-  border-radius: 6px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 0 2rem;
-  cursor: pointer;
-
-  &__icon {
-    font-size: 3rem !important;
-    color: $d-blue;
-  }
-
-  &:hover {
-    background-color: $d-bg;
-  }
-}
-
-// ================================================================
-// Responsive Breakpoints
-// ================================================================
-
-@media screen and (max-width: 1385px) {
-  .dashboard {
-    width: 92%;
-  }
-
-  .room__lower {
-    flex-direction: column;
-
-    &__left {
-      width: 100%;
-      box-sizing: border-box;
-      border-right: none;
-      border-bottom: 1px solid $d-border;
-    }
-
-    &__right {
-      margin: 0 1.5rem 1.5rem;
-      align-self: stretch;
-      box-sizing: border-box;
-      grid-template-columns: 1fr;
-    }
-  }
-
-  .inditem-grid {
-    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
-  }
-
-  .package__right {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media screen and (max-width: 750px) {
-  .dashboard {
-    width: 96%;
-  }
-
-  .inditem-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .package {
-    flex-direction: column;
-
-    &__left {
-      flex: none;
-      width: 100%;
-    }
-
-    &__right {
-      flex: none;
-      width: 100%;
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-}
-
-@media screen and (max-width: 500px) {
-  .inditem-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .indiimage img {
-    width: 14rem;
   }
 }

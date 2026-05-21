@@ -19,10 +19,13 @@ import {
 } from "recharts";
 import { saveAs } from "file-saver";
 import Encoding from "encoding-japanese";
-import ExpandLessIcon from "@mui/icons-material/KeyboardArrowUpOutlined";
 import ExpandMoreIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 import RefreshIcon from "@mui/icons-material/RefreshOutlined";
 import { useLoading } from "@/context/LoadingContext";
+import TuneIcon from "@mui/icons-material/TuneOutlined";
+import TableChartIcon from "@mui/icons-material/TableChartOutlined";
+import DownloadIcon from "@mui/icons-material/FileDownloadOutlined";
+import ChartIcon from "@mui/icons-material/ShowChartOutlined";
 
 interface DatasProps {
   params: {
@@ -590,32 +593,62 @@ function Datas({ params }: DatasProps) {
   };
 
   const renderPaginationButtons = () => {
-    const pageButtons = [];
-    const maxPageButtons = 7; // ページネーションボタンの最大数
-
+    const pageButtons: React.ReactNode[] = [];
+    const maxPageButtons = 5;
     let startPage = Math.max(1, currentPage - Math.floor(maxPageButtons / 2));
     let endPage = Math.min(totalPages, startPage + maxPageButtons - 1);
-
     if (endPage - startPage + 1 < maxPageButtons) {
       startPage = Math.max(1, endPage - maxPageButtons + 1);
     }
-
+    if (startPage > 1) {
+      pageButtons.push(
+        <button
+          key={1}
+          className="package-pagination__page"
+          onClick={() => handlePageChange(1)}
+        >
+          1
+        </button>,
+      );
+      if (startPage > 2) {
+        pageButtons.push(
+          <span key="ellipsis-start" className="package-pagination__ellipsis">
+            ...
+          </span>,
+        );
+      }
+    }
     for (let i = startPage; i <= endPage; i++) {
       pageButtons.push(
         <button
           key={i}
-          className={
-            currentPage === i
-              ? "pagnates__btn__area__btn present"
-              : "pagnates__btn__area__btn"
-          }
+          className={`package-pagination__page${
+            currentPage === i ? " package-pagination__page--active" : ""
+          }`}
           onClick={() => handlePageChange(i)}
         >
           {i}
         </button>,
       );
     }
-
+    if (endPage < totalPages) {
+      if (endPage < totalPages - 1) {
+        pageButtons.push(
+          <span key="ellipsis-end" className="package-pagination__ellipsis">
+            ...
+          </span>,
+        );
+      }
+      pageButtons.push(
+        <button
+          key={totalPages}
+          className="package-pagination__page"
+          onClick={() => handlePageChange(totalPages)}
+        >
+          {totalPages}
+        </button>,
+      );
+    }
     return pageButtons;
   };
 
@@ -820,6 +853,38 @@ function Datas({ params }: DatasProps) {
     setUpdateClicked(true);
   };
 
+  const getTitleArray = () =>
+    title_text
+      .split(",")
+      .map((t) => t.trim())
+      .filter(Boolean);
+
+  const renderNewCheckboxes = () => (
+    <div className="package-chart-selector__grid">
+      {Object.keys(allGraph).map((item, index) => (
+        <label
+          key={item}
+          className="package-chart-selector__item"
+          style={
+            {
+              "--item-color": color_codes[index % color_codes.length],
+            } as React.CSSProperties
+          }
+        >
+          <input
+            type="checkbox"
+            checked={selectedItems.includes(item)}
+            onChange={() => handleCheckboxChange(item)}
+          />
+          <span className="package-chart-selector__checkbox" />
+          <span className="package-chart-selector__label">
+            {allGraph[item]}
+          </span>
+        </label>
+      ))}
+    </div>
+  );
+
   return (
     <div className="datas">
       <CustomInfo
@@ -827,62 +892,108 @@ function Datas({ params }: DatasProps) {
         message={alertMessage}
         onClose={() => setShowAlert(false)}
       />
-      <div className="analytics">
-        <div className="analytics__inner">
-          <div className="analytics__inner__head">
-            <div className="analytics__inner__head__left"></div>
-            <div className="analytics__inner__head__right">
-              <div className="datepick">
+      <div className="package-main">
+        {/* 情報カード */}
+        <section className="package-info-section">
+          <div className="package-info-card">
+            <div className="package-info-card__header">
+              <div className="package-info-card__badges">
+                <span className="package-info-badge package-info-badge--package">
+                  {packageName}
+                </span>
+              </div>
+              <div className="package-info-card__date">
+                <label className="package-info-card__date__label">表示日</label>
                 <DatePicker
                   dateFormat="yyyy年MM月dd日"
                   selected={date}
                   locale="ja"
                   id="datepicker"
-                  onChange={(selectedDate: Date | null) => {
-                    setDate(selectedDate || Today);
-                  }}
+                  className="package-info-card__date__input"
+                  onChange={(selectedDate: Date | null) =>
+                    setDate(selectedDate || Today)
+                  }
                 />
               </div>
             </div>
           </div>
-          <div className="analytics__inner__chart">
-            <div className="analytics__inner__chart__top">
-              <div className="analytics__inner__chart__top__dropdown">
+        </section>
+
+        {/* グラフカード */}
+        <section className="package-chart-section">
+          <div className="package-chart-card">
+            <div className="package-chart-card__header">
+              <h2 className="package-chart-card__title">
+                <ChartIcon />
+                運転データグラフ
+              </h2>
+              <div className="package-chart-card__controls">
                 <button
-                  className="analytics__inner__chart__top__dropdown__toggle"
+                  className={`package-chart-card__toggle${
+                    showCheckBox ? " active" : ""
+                  }`}
                   onClick={handleShowCheckBox}
                 >
-                  <p>{showCheckBox ? "Close List" : "Open List"}</p>
-                  {showCheckBox ? (
-                    <ExpandLessIcon style={{ fontSize: "3rem" }} />
-                  ) : (
-                    <ExpandMoreIcon style={{ fontSize: "3rem" }} />
-                  )}
+                  <TuneIcon />
+                  表示項目を選択
+                  <ExpandMoreIcon className="package-chart-card__toggle__arrow" />
                 </button>
-                <div
-                  className={`analytics__inner__chart__top__dropdown__contents ${
-                    showCheckBox ? "on" : ""
-                  }`}
-                >
-                  {renderDynamicCheckboxes()}
-                </div>
               </div>
             </div>
-            <div className="analytics__inner__chart__body">{renderGraph()}</div>
+
+            <div
+              className={`package-chart-selector${
+                showCheckBox ? " active" : ""
+              }`}
+            >
+              <div className="package-chart-selector__header">
+                <span className="package-chart-selector__title">
+                  表示する項目を選択
+                </span>
+                <div className="package-chart-selector__actions">
+                  <button
+                    className="package-chart-selector__btn"
+                    onClick={handleSelectAll}
+                  >
+                    すべて選択
+                  </button>
+                  <button
+                    className="package-chart-selector__btn"
+                    onClick={handleDeselectAll}
+                  >
+                    選択解除
+                  </button>
+                </div>
+              </div>
+              {renderNewCheckboxes()}
+            </div>
+
+            <div className="package-chart-card__body">
+              <div style={{ width: "100%", height: "50rem" }}>
+                {renderGraph()}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div className="runningdata">
-        <div className="runningdata__body">
-          <div className="runningdata__body__data">
-            <div className="runningdata__body__data__topmenu">
-              <div className="runningdata__body__data__topmenu__left">
-                <div className="datanum">
-                  <p>表示件数</p>
+        </section>
+
+        {/* テーブルカード */}
+        <section className="package-table-section">
+          <div className="package-table-card">
+            <div className="package-table-card__header">
+              <h2 className="package-table-card__title">
+                <TableChartIcon />
+                運転データ一覧
+              </h2>
+            </div>
+
+            <div className="package-table-controls">
+              <div className="package-table-controls__left">
+                <div className="package-table-control">
+                  <label className="package-table-control__label">
+                    表示件数
+                  </label>
                   <select
-                    name="datanum"
-                    id="datanum"
-                    className="datanum__body"
+                    className="package-table-control__select"
                     value={dataNum}
                     onChange={handleDataNumChange}
                   >
@@ -891,12 +1002,12 @@ function Datas({ params }: DatasProps) {
                     <option value="200">200件</option>
                   </select>
                 </div>
-                <div className="datanum">
-                  <p>表示間隔</p>
+                <div className="package-table-control">
+                  <label className="package-table-control__label">
+                    表示間隔
+                  </label>
                   <select
-                    name="datadual"
-                    id="datadual"
-                    className="datanum__body"
+                    className="package-table-control__select"
                     value={dataDual}
                     onChange={handleDataDualChange}
                   >
@@ -906,52 +1017,107 @@ function Datas({ params }: DatasProps) {
                     <option value="60">60分</option>
                   </select>
                 </div>
-                <div className="export-csv">
-                  <button onClick={handleExportCSV}>CSV出力</button>
-                </div>
-                <div className="update__wrapper">
-                  <div
-                    className="update__wrapper__button"
-                    onClick={handleManualUpdate}
-                  >
-                    <span>
-                      <RefreshIcon style={{ fontSize: "3rem" }} />
-                    </span>
-                  </div>
-                </div>
+                <button
+                  className="package-table-btn package-table-btn--secondary"
+                  onClick={handleExportCSV}
+                >
+                  <DownloadIcon />
+                  CSV出力
+                </button>
+                <button
+                  className="package-table-btn package-table-btn--icon"
+                  onClick={handleManualUpdate}
+                  title="更新"
+                >
+                  <RefreshIcon />
+                </button>
               </div>
-              <div className="runningdata__body__data__topmenu__right">
-                <div className="pagnates">
-                  <input
-                    type="button"
-                    value="前へ"
-                    className="pagnates__btn"
+              <div className="package-table-controls__right">
+                <div className="package-pagination">
+                  <button
+                    className="package-pagination__btn"
                     onClick={() => handlePageChange(currentPage - 1)}
                     disabled={currentPage === 1}
-                  />
-                  <div className="pagenates__btn__area" id="pagenate_button">
+                  >
+                    前へ
+                  </button>
+                  <div className="package-pagination__pages">
                     {renderPaginationButtons()}
                   </div>
-                  <input
-                    type="button"
-                    value="次へ"
-                    className="pagnates__btn"
+                  <button
+                    className="package-pagination__btn"
                     onClick={() => handlePageChange(currentPage + 1)}
                     disabled={currentPage === totalPages}
-                  />
+                  >
+                    次へ
+                  </button>
                 </div>
               </div>
             </div>
-            <div className="datatable">
-              <div className="datatable__body">
-                <table>
-                  <thead>{renderTableTitle()}</thead>
-                  <tbody id="system_data_list">{renderTableRows()}</tbody>
+
+            <div className="package-table-card__body">
+              <div className="package-data-table-wrapper">
+                <table className="package-data-table">
+                  <thead>
+                    <tr>
+                      {getTitleArray().map((titleName, index) => (
+                        <th
+                          key={index}
+                          className={`package-data-table__th${
+                            index === 0 ? " package-data-table__th--sticky" : ""
+                          }`}
+                        >
+                          {titleName}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {getPaginatedData().length > 0 ? (
+                      getPaginatedData().map((item: any, rowIndex: number) => (
+                        <tr key={rowIndex} className="package-data-table__row">
+                          {desiredColumns.map((columnName, colIndex) => (
+                            <td
+                              key={columnName}
+                              className={`package-data-table__td${
+                                colIndex === 0
+                                  ? " package-data-table__td--time"
+                                  : ""
+                              }`}
+                            >
+                              {item[columnName]}
+                            </td>
+                          ))}
+                        </tr>
+                      ))
+                    ) : (
+                      <tr className="package-data-table__row">
+                        <td
+                          colSpan={desiredColumns.length || 1}
+                          className="package-data-table__td"
+                          style={{ textAlign: "center", padding: "3rem" }}
+                        >
+                          データが見つかりません
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
                 </table>
               </div>
             </div>
+
+            <div className="package-table-card__footer">
+              <span className="package-table-info">
+                {data
+                  ? `${(currentPage - 1) * itemsPerPage + 1} - ${Math.min(
+                      currentPage * itemsPerPage,
+                      data.length,
+                    )} 件目 / 全 ${data.length.toLocaleString()} 件`
+                  : "0 件"}
+              </span>
+            </div>
           </div>
-        </div>
+        </section>
       </div>
     </div>
   );

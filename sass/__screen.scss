@@ -20,7 +20,8 @@
         width: 8rem;
         height: 100%;
         z-index: 999;
-        background-color: #1a3260;
+        background: linear-gradient(to right, rgb(75, 135, 28) 0%, rgb(128, 185, 36) 100%);
+        cursor: pointer;
         span {
           display: inline-block;
           position: absolute;
@@ -46,7 +47,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        background-color: #1a3260;
+        background: linear-gradient(to right, rgb(128, 185, 36) 0%, rgb(168, 218, 48) 100%);
         height: 100%;
         width: 8rem;
         top: 0;
@@ -150,8 +151,8 @@
     height: 5rem;
     width: 100%;
     margin: 0 auto;
-    background-color: #e8eef8;
-    border-bottom: 1px solid rgba(100, 150, 230, 0.20);
+    background: linear-gradient(to right, rgb(128, 185, 36) 0%, rgb(168, 218, 48) 70%, rgb(240, 220, 0) 100%);
+    border-bottom: 1px solid rgba(130, 185, 36, 0.30);
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -163,11 +164,11 @@
       align-items: center;
       padding-left: 4.5rem;
       font-size: 1.5rem;
-      font-weight: 400;
-      color: #1a3260;
+      font-weight: 700;
+      color: #2e4010;
       a {
         text-decoration: none;
-        color: rgba(26, 50, 96, 0.70);
+        color: rgba(46, 64, 16, 0.70);
       }
       span {
         margin: 0 1rem;
