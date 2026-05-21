@@ -16,7 +16,7 @@ const notoSansJP = Noto_Sans_JP({
 });
 
 export const metadata: Metadata = {
-  title: "SF-Zero webApps | Mayekawa",
+  title: "Sample SF-Zero webApps | Mayekawa",
   description:
     "A web application that includes all user functions for the SF-Zero.",
   creator: "Takeo Fujimoto",
